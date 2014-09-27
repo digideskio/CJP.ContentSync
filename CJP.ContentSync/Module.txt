@@ -1,0 +1,18 @@
+﻿Name: Content Sync
+AntiForgery: enabled
+Author: Christopher John Payne
+Website: http://www.theletlist.co.uk
+Version: 1.0
+OrchardVersion: 1.7
+Description: Provides methods to sync the content of mutliple Orchard sites.
+Category: Content Publishing
+Dependencies: Orchard.ImportExport
+Features:
+	CJP.ContentSync.Fake1:
+		Name: Fake Feature 1
+	CJP.ContentSync.Fake2:
+		Name: Fake Feature 2
+	CJP.ContentSync.Fake3:
+		Name: Fake Feature 3
+	CJP.ContentSync.Fake4:
+		Name: Fake Feature 4

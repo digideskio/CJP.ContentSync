@@ -1,0 +1,78 @@
+﻿<!--Exported from Orchard-->
+<Orchard>
+  <EnabledFeatures>
+    <Feature Id="Orchard.ImportExport" />
+    <Feature Id="CJP.ContentSync" />
+    <Feature Id="Settings" />
+    <Feature Id="Common" />
+    <Feature Id="Orchard.Alias" />
+    <Feature Id="Orchard.jQuery" />
+    <Feature Id="Orchard.Tokens" />
+    <Feature Id="Scheduling" />
+    <Feature Id="Orchard.Autoroute" />
+    <Feature Id="Orchard.OutputCache" />
+    <Feature Id="Orchard.Forms" />
+    <Feature Id="Orchard.MediaProcessing" />
+    <Feature Id="Title" />
+    <Feature Id="Orchard.MediaLibrary" />
+    <Feature Id="Orchard.PublishLater" />
+    <Feature Id="Orchard.Scripting" />
+    <Feature Id="Orchard.Themes" />
+    <Feature Id="Orchard.Widgets" />
+    <Feature Id="Feeds" />
+    <Feature Id="Navigation" />
+    <Feature Id="Shapes" />
+    <Feature Id="Orchard.Blogs" />
+    <Feature Id="Contents" />
+    <Feature Id="Orchard.ContentPicker" />
+    <Feature Id="Orchard.CodeGeneration" />
+    <Feature Id="Orchard.Comments" />
+    <Feature Id="Orchard.Workflows" />
+    <Feature Id="Orchard.Users" />
+    <Feature Id="Orchard.Roles" />
+    <Feature Id="Orchard.ContentTypes" />
+    <Feature Id="Orchard.Fields" />
+    <Feature Id="Containers" />
+    <Feature Id="Orchard.Modules" />
+    <Feature Id="Orchard.Packaging" />
+    <Feature Id="PackagingServices" />
+    <Feature Id="Gallery" />
+    <Feature Id="Orchard.Pages" />
+    <Feature Id="Orchard.Projections" />
+    <Feature Id="Orchard.Recipes" />
+    <Feature Id="Orchard.Scripting.Lightweight" />
+    <Feature Id="Orchard.Tags" />
+    <Feature Id="Orchard.Taxonomies" />
+    <Feature Id="TinyMce" />
+    <Feature Id="Dashboard" />
+    <Feature Id="Reports" />
+    <Feature Id="TheThemeMachine" />
+  </EnabledFeatures>
+  <Data>
+    <Layer Id="/Layer.LayerName=Default" Status="Published">
+      <CommonPart Owner="/User.UserName=OrchardAdmin" CreatedUtc="2014-09-24T19:37:57.3049568Z" PublishedUtc="2014-09-24T19:37:57.3690003Z" ModifiedUtc="2014-09-24T19:37:57.3049568Z" />
+      <LayerPart Name="Default" Description="The widgets in this layer are displayed on all pages" LayerRule="true" />
+    </Layer>
+    <Layer Id="/Layer.LayerName=Authenticated" Status="Published">
+      <CommonPart Owner="/User.UserName=OrchardAdmin" CreatedUtc="2014-09-24T19:37:57.4090282Z" PublishedUtc="2014-09-24T19:37:57.4160334Z" ModifiedUtc="2014-09-24T19:37:57.4090282Z" />
+      <LayerPart Name="Authenticated" Description="The widgets in this layer are displayed when the user is authenticated" LayerRule="authenticated" />
+    </Layer>
+    <Layer Id="/Layer.LayerName=Anonymous" Status="Published">
+      <CommonPart Owner="/User.UserName=OrchardAdmin" CreatedUtc="2014-09-24T19:37:57.4280419Z" PublishedUtc="2014-09-24T19:37:57.4330456Z" ModifiedUtc="2014-09-24T19:37:57.4280419Z" />
+      <LayerPart Name="Anonymous" Description="The widgets in this layer are displayed when the user is anonymous" LayerRule="not authenticated" />
+    </Layer>
+    <Layer Id="/Layer.LayerName=Disabled" Status="Published">
+      <CommonPart Owner="/User.UserName=OrchardAdmin" CreatedUtc="2014-09-24T19:37:57.4450631Z" PublishedUtc="2014-09-24T19:37:57.4510557Z" ModifiedUtc="2014-09-24T19:37:57.4450631Z" />
+      <LayerPart Name="Disabled" Description="The widgets in this layer are never displayed" LayerRule="false" />
+    </Layer>
+    <Layer Id="/Layer.LayerName=TheHomepage" Status="Published">
+      <CommonPart Owner="/User.UserName=OrchardAdmin" CreatedUtc="2014-09-24T19:37:57.4620659Z" PublishedUtc="2014-09-24T19:37:57.4680706Z" ModifiedUtc="2014-09-24T19:37:57.4620659Z" />
+      <LayerPart Name="TheHomepage" Description="The widgets in this layer are displayed on the home page" LayerRule="url '~/'" />
+    </Layer>
+    <Menu Id="/Identifier=412cd99bdb3b4d14a6fe84a88548c460" Status="Published">
+      <IdentityPart Identifier="412cd99bdb3b4d14a6fe84a88548c460" />
+      <CommonPart CreatedUtc="2014-09-24T19:37:57.5931915Z" PublishedUtc="2014-09-24T19:37:57.6031901Z" ModifiedUtc="2014-09-24T19:37:57.5931915Z" />
+      <TitlePart Title="Main Menu" />
+    </Menu>
+  </Data>
+</Orchard>
