@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Linq;
-using CJP.ContentSync.Models;
-using Orchard.Data;
-using Orchard.Environment.Features;
+using CJP.ContentSync.Services;
 using Orchard.Recipes.Models;
 using Orchard.Recipes.Services;
-using Orchard.Services;
 
 namespace CJP.ContentSync.RecipeHandlers
 {
     public class ExecutedDataMigrationsRecipeStepHandler : IRecipeHandler
     {
-        private readonly IRepository<MigrationExecutionRecord> _repository;
-        private readonly IClock _clock;
+        private readonly IContentMigrationStateService _contentMigrationStateService;
 
-        public ExecutedDataMigrationsRecipeStepHandler(IRepository<MigrationExecutionRecord> repository, IClock clock) {
-            _repository = repository;
-            _clock = clock;
+        public ExecutedDataMigrationsRecipeStepHandler(IContentMigrationStateService contentMigrationStateService) {
+            _contentMigrationStateService = contentMigrationStateService;
         }
 
         /*
@@ -33,14 +28,14 @@ namespace CJP.ContentSync.RecipeHandlers
             var migrations = recipeContext.RecipeStep.Step.Descendants();
             var migrationNames = migrations.Where(f => f.Name == "Migration").Select(f => f.Attribute("Name").Value);
 
-            var locallyRanMigrations = _repository.Table.ToList();
+            var locallyRanMigrations = _contentMigrationStateService.GetExecutedMigrations().ToList();
 
-            foreach (var migrationExecutionRecord in locallyRanMigrations.Where(m=>!migrationNames.Contains(m.MigrationName))) {//migrations that have been executed locally, but not in the recipe that is been executed
-                _repository.Delete(migrationExecutionRecord);
+            foreach (var migration in locallyRanMigrations.Where(m=>!migrationNames.Contains(m))) {//migrations that have been executed locally, but not in the recipe that is been executed
+                _contentMigrationStateService.MarkMigrationAsPending(migration);
             }
 
-            foreach (var migrationToAdd in migrationNames.Where(m=>!locallyRanMigrations.Select(lm=>lm.MigrationName).Contains(m))) {
-                _repository.Create(new MigrationExecutionRecord{MigrationName = migrationToAdd, ExecutedAt = _clock.UtcNow});
+            foreach (var migrationToAdd in migrationNames.Where(m=>!locallyRanMigrations.Contains(m))) {
+                _contentMigrationStateService.MarkMigrationAsExecuted(migrationToAdd);
             }
 
             recipeContext.Executed = true;

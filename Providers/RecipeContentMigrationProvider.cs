@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using CJP.ContentSync.Models;
 using Orchard.Environment.Features;
 using Orchard.FileSystems.VirtualPath;
+using Orchard.ImportExport.Services;
 using Orchard.Recipes.Models;
 using Orchard.Recipes.Services;
 
@@ -13,12 +13,14 @@ namespace CJP.ContentSync.Providers {
     {
         private readonly IFeatureManager _featureManager;
         private readonly IVirtualPathProvider _virtualPathProvider;
-        private readonly IEnumerable<IRecipeHandler> _recipeHandlers;
+        private readonly IImportExportService _importExportService;
+        private readonly IRecipeJournal _recipeJournal;
 
-        public RecipeContentMigrationProvider(IFeatureManager featureManager, IVirtualPathProvider virtualPathProvider, IEnumerable<IRecipeHandler> recipeHandlers) {
+        public RecipeContentMigrationProvider(IFeatureManager featureManager, IVirtualPathProvider virtualPathProvider, IImportExportService importExportService, IRecipeJournal recipeJournal) {
             _featureManager = featureManager;
             _virtualPathProvider = virtualPathProvider;
-            _recipeHandlers = recipeHandlers;
+            _importExportService = importExportService;
+            _recipeJournal = recipeJournal;
         }
 
         public IEnumerable<string> GetAvailableMigrations() {
@@ -33,38 +35,17 @@ namespace CJP.ContentSync.Providers {
                 var migrationName = GetMigrationNameFromFileName(recipeFile);
                 if (migrationNames.Contains(migrationName)) {
 
-                    var recipeExecutionWasSuccessful = true;
-
                     var mappedPath = _virtualPathProvider.MapPath(recipeFile);
-                    var recipeXml = XElement.Parse(File.ReadAllText(mappedPath));
+                    var executionId = _importExportService.Import(File.ReadAllText(mappedPath));
+                    var recipeJournal = _recipeJournal.GetRecipeJournal(executionId);
 
-                    foreach (var descendant in recipeXml.Elements())
-                    {
-                        var stepName = descendant.Name.LocalName;
-                        var recipeStep = new RecipeStep
-                        {
-                            Name = stepName,
-                            Step = descendant
-                        };
+                    result.Messages.AddRange(recipeJournal.Messages.Select(m=>string.Format("Recipe Content Migration Provider: Migration: {0}. {1}", migrationName, m)));
 
-                        var recipeContext = new RecipeContext { RecipeStep = recipeStep, Executed = false };
-                        foreach (var recipeHandler in _recipeHandlers)
-                        {
-                            recipeHandler.ExecuteRecipeStep(recipeContext);
-                        }
-
-                        if (!recipeContext.Executed) {
-                            result.FailedMigrations.Add(new FailedMigrationSummary {
-                                MigrationName = migrationName,
-                                FailureReason = string.Format("Recipe step {0} failed to execute successfully.", stepName)
-                            });
-
-                            recipeExecutionWasSuccessful = false;
-                        }
-                    }
-
-                    if (recipeExecutionWasSuccessful) {
+                    if (recipeJournal.Status == RecipeStatus.Complete) {
                         result.SuccessfulMigrations.Add(migrationName);
+                    }
+                    else{
+                        result.FailedMigrations.Add(migrationName);
                     }
                 }
             }

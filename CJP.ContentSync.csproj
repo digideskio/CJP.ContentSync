@@ -94,25 +94,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DataMigrationCommands.cs" />
+    <Compile Include="ExportSteps\ContentTrimExportStep.cs" />
+    <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
     <Compile Include="ExportSteps\ExecutedDataMigrationsExportStep.cs" />
     <Compile Include="Migrations\DataMigrations.cs" />
     <Compile Include="Models\MigrationExecutionRecord.cs" />
     <Compile Include="Providers\FakeMigrationTrigger.cs" />
     <Compile Include="Providers\RecipeContentMigrationProvider.cs" />
+    <Compile Include="RecipeHandlers\ContentTrimRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\DeleteContentRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\ExecutedDataMigrationsRecipeStepHandler.cs" />
-    <Compile Include="Services\Class1.cs" />
     <Compile Include="Providers\IContentMigrationProvider.cs" />
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
+    <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
     <Compile Include="Services\DefaultContentMigrationManager.cs" />
-    <Compile Include="Services\ContentSyncSettingsService.cs" />
-    <Compile Include="Services\DefaultContentSyncService.cs" />
-    <Compile Include="Models\FailedMigrationSummary.cs" />
-    <Compile Include="RecipeHandlers\FeatureToggleRecipeStepHandler.cs" />
-    <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
+    <Compile Include="Services\DefaultContentMigrationStateService.cs" />
+    <Compile Include="RecipeHandlers\FeatureSyncRecipeStepHandler.cs" />
+    <Compile Include="ExportSteps\RunContentMigrationsExportStep.cs" />
     <Compile Include="Services\IContentMigrationManager.cs" />
-    <Compile Include="Services\IContentSyncService.cs" />
-    <Compile Include="Services\IContentSyncSettingsService.cs" />
+    <Compile Include="Services\IContentMigrationStateService.cs" />
     <Compile Include="Models\MigrationExectutionSummary.cs" />
   </ItemGroup>
   <ItemGroup>

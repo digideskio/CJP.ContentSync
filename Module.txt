@@ -1,0 +1,9 @@
+﻿Name: Content Sync
+AntiForgery: enabled
+Author: Christopher John Payne
+Website: https://github.com/paynecrl97/CJP.ContentSync
+Version: 1.0
+OrchardVersion: 1.7
+Description: Provides methods to sync the content of mutliple Orchard sites.
+Category: Content Publishing
+Dependencies: Orchard.ImportExport, Orchard.Widgets

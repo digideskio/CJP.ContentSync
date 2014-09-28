@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using CJP.ContentSync.Models;
+using CJP.ContentSync.Services;
 using Orchard;
-using Orchard.Data;
 using Orchard.ImportExport.Services;
 using Orchard.Localization;
 using Orchard.Logging;
@@ -12,11 +11,11 @@ namespace CJP.ContentSync.ExportSteps
 {
     public class ExecutedDataMigrationsExportStep : IExportEventHandler, ICustomExportStep
     {
-        private readonly IRepository<MigrationExecutionRecord> _repository;
+        private readonly IContentMigrationStateService _contentMigrationStateService;
 
-        public ExecutedDataMigrationsExportStep(IRepository<MigrationExecutionRecord> repository) 
+        public ExecutedDataMigrationsExportStep(IContentMigrationStateService contentMigrationStateService) 
         {
-            _repository = repository;
+            _contentMigrationStateService = contentMigrationStateService;
 
             Logger = NullLogger.Instance;
             T = NullLocalizer.Instance;
@@ -30,8 +29,9 @@ namespace CJP.ContentSync.ExportSteps
 
             var xmlElement = new XElement("ExecutedDataMigrations");
 
-            foreach (var migration in _repository.Table.ToList()) {
-                xmlElement.Add(new XElement("Migration", new XAttribute("Name", migration.MigrationName)));
+            foreach (var migration in _contentMigrationStateService.GetExecutedMigrations())
+            {
+                xmlElement.Add(new XElement("Migration", new XAttribute("Name", migration)));
             }
 
             var rootElement = context.Document.Descendants("Orchard").FirstOrDefault();

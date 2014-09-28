@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
-using CJP.ContentSync.Services;
 
 namespace CJP.ContentSync.Models {
     public class MigrationExectutionSummary
     {
         public MigrationExectutionSummary() {
             SuccessfulMigrations = new List<string>();
-            FailedMigrations = new List<FailedMigrationSummary>();
+            FailedMigrations = new List<string>();
+            Messages = new List<string>();
         }
 
+        public List<string> Messages { get; set; }
         public List<string> SuccessfulMigrations { get; set; }
-        public List<FailedMigrationSummary> FailedMigrations { get; set; } 
+        public List<string> FailedMigrations { get; set; } 
     }
 }

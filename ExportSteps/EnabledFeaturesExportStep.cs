@@ -25,9 +25,9 @@ namespace CJP.ContentSync.ExportSteps
         public Localizer T { get; set; }
 
         public void Exporting(ExportContext context) {
-            if (!context.ExportOptions.CustomSteps.Contains("Features")) { return; }
+            if (!context.ExportOptions.CustomSteps.Contains("FeatureSync")) { return; }
 
-            var xmlElement = new XElement("EnabledFeatures");
+            var xmlElement = new XElement("FeatureSync");
 
             foreach (var feature in _featureManager.GetEnabledFeatures()) {
                 xmlElement.Add(new XElement("Feature", new XAttribute("Id", feature.Id)));
@@ -48,7 +48,7 @@ namespace CJP.ContentSync.ExportSteps
         public void Exported(ExportContext context) {}
 
         public void Register(IList<string> steps) {
-            steps.Add("Features");
+            steps.Add("FeatureSync");
         }
     }
 }
