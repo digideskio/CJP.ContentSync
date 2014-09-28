@@ -67,8 +67,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ContentMigrations\CJP.ContentSync\TestMigration2.Recipe.xml" />
-    <Content Include="ContentMigrations\CJP.ContentSync\TestMigration1.Recipe.xml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Styles\Web.config" />
@@ -117,6 +115,7 @@
     <Compile Include="Models\MigrationExectutionSummary.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ContentMigrations\CJP.ContentSync\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
   </ItemGroup>
