@@ -40,7 +40,7 @@ namespace CJP.ContentSync.RecipeHandlers
             if (contentToKeepElement == null) { throw new Exception("Could not execute the Content Trim step as there was no 'ContentToKeep' element in the step."); }
 
             var contentTypes = contentTypesElement.Descendants("add").Select(e => e.Attribute("type").Value);
-            var contentToKeep = contentTypesElement.Descendants("add").Select(e => e.Attribute("identifier").Value);
+            var contentToKeep = contentToKeepElement.Descendants("add").Select(e => e.Attribute("identifier").Value).ToList();
 
             var contentItems = _contentManager.Query<IdentityPart, IdentityPartRecord>(contentTypes.ToArray()).Where(c => !contentToKeep.Contains(c.Identifier)).List();
 

@@ -33,7 +33,7 @@ namespace CJP.ContentSync.ExportSteps
                 throw ex;
             }
 
-            rootElement.AddFirst(xmlElement);
+            rootElement.Add(xmlElement);
         }
 
         public void Exported(ExportContext context) {}

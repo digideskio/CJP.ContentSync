@@ -64,7 +64,14 @@ namespace CJP.ContentSync.Controllers
                 return View("Index", new AdminImportVM());
             }
 
-            _orchardServices.Notifier.Warning(T("The import from the remote site failed"));
+            if (journal.Status == RecipeStatus.Started) {
+                _orchardServices.Notifier.Information(T("Site content is in the process of bein synced, but has not yet completed. You can refresh this page to monitor the progress of your sync"));
+            }
+            else
+            {
+                _orchardServices.Notifier.Warning(T("The import from the remote site failed"));
+            }
+
             return RedirectToAction("ImportResult", "Admin", new { ExecutionId = executionId, area="Orchard.ImportExport" });
         }
     }
