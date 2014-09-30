@@ -6,13 +6,14 @@ using Orchard.ImportExport.Services;
 using Orchard.Recipes.Services;
 
 namespace CJP.ContentSync.Commands {
-    public class DataMigrationCommands : DefaultOrchardCommandHandler {
+    public class ContentMigrationCommands : DefaultOrchardCommandHandler {
         private readonly IContentMigrationManager _contentMigrationManager;
         private readonly IContentExportService _contentExportService;
         private readonly IImportExportService _importExportService;
         private readonly IRecipeJournal _recipeJournal;
 
-        public DataMigrationCommands(IContentMigrationManager contentMigrationManager, IContentExportService contentExportService, IImportExportService importExportService, IRecipeJournal recipeJournal) {
+        public ContentMigrationCommands(IContentMigrationManager contentMigrationManager, IContentExportService contentExportService, IImportExportService importExportService, IRecipeJournal recipeJournal)
+        {
             _contentMigrationManager = contentMigrationManager;
             _contentExportService = contentExportService;
             _importExportService = importExportService;

@@ -86,7 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\DataMigrationCommands.cs" />
+    <Compile Include="Commands\ContentMigrationCommands.cs" />
     <Compile Include="Models\AdminImportVM.cs" />
     <Compile Include="Controllers\API\ContentExportController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
