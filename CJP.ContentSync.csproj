@@ -53,7 +53,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetwebapi\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
@@ -93,11 +98,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\DataMigrationCommands.cs" />
+    <Compile Include="Models\AdminImportVM.cs" />
+    <Compile Include="Controllers\API\ContentExportController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ExportSteps\ContentTrimExportStep.cs" />
     <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
     <Compile Include="ExportSteps\ExecutedDataMigrationsExportStep.cs" />
     <Compile Include="Migrations\DataMigrations.cs" />
+    <Compile Include="Models\ApiResult.cs" />
+    <Compile Include="Models\ApiResultStatus.cs" />
     <Compile Include="Models\MigrationExecutionRecord.cs" />
+    <Compile Include="Permissions\ApiPermissions.cs" />
+    <Compile Include="Providers\AdminMenu.cs" />
     <Compile Include="Providers\FakeMigrationTrigger.cs" />
     <Compile Include="Providers\RecipeContentMigrationProvider.cs" />
     <Compile Include="RecipeHandlers\ContentTrimRecipeStepHandler.cs" />
@@ -106,6 +118,8 @@
     <Compile Include="Providers\IContentMigrationProvider.cs" />
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
+    <Compile Include="Services\DefaultContentExportService.cs" />
+    <Compile Include="Services\IContentExportService.cs" />
     <Compile Include="Services\DefaultContentMigrationManager.cs" />
     <Compile Include="Services\DefaultContentMigrationStateService.cs" />
     <Compile Include="RecipeHandlers\FeatureSyncRecipeStepHandler.cs" />
@@ -116,8 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ContentMigrations\CJP.ContentSync\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

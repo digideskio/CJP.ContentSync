@@ -6,4 +6,5 @@ Version: 1.0
 OrchardVersion: 1.7
 Description: Provides methods to sync the content of mutliple Orchard sites.
 Category: Content Publishing
+Path: ContentSync
 Dependencies: Orchard.ImportExport, Orchard.Widgets

@@ -1,0 +1,33 @@
+﻿@model CJP.ContentSync.Models.AdminImportVM
+
+@{
+    Layout.Title = T("Content Sync");
+}
+
+@using (Html.BeginFormAntiForgeryPost()) {
+
+    <fieldset>
+        <legend>@T("Site details")</legend>
+        <p>
+            @T("Provide the URL for the remote site, and the Username and Password of a user that has the correct permissions to provide a site export")
+        </p>
+        <div>
+            @Html.LabelFor(m => m.Url)
+            @Html.TextBoxFor(m => m.Url)
+            <span class="hint">@T("The URL of the site you wish to sync with")</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username)
+            <span class="hint">@T("The username for the account that has the export permission")</span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            <span class="hint">@T("The password for the account specified above")</span>
+        </div>
+    </fieldset>
+    <div class="actions">
+        <button type="submit">@T("Sync Content")</button>
+    </div>
+}
