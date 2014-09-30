@@ -24,7 +24,9 @@ namespace CJP.ContentSync.Services {
         public ILogger Logger { get; set; }
 
         public string GetContentExportText() {
-            var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd=>ctd.Name);
+            var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).ToList();
+            contentTypes.Remove("Site");
+            contentTypes.Remove("User");
 
             var customSteps = new List<string>();
             _customExportStep.Register(customSteps);

@@ -9,6 +9,10 @@ namespace CJP.ContentSync.Providers {
     public class FakeMigrationTrigger : INotificationProvider {
         private readonly IContentMigrationManager _contentMigrationManager;
 
+
+        //todo: allow for export settings to be defined as part of site settings
+        //todo: allow for saving of credentials
+        //todo: allow for creation of scheduled tasks
         public FakeMigrationTrigger(IContentMigrationManager contentMigrationManager)
         {
             _contentMigrationManager = contentMigrationManager;
