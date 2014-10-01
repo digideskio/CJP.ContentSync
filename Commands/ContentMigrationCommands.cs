@@ -57,7 +57,7 @@ namespace CJP.ContentSync.Commands {
 
 
         [CommandName("CJP contentsync from remote")]
-        [CommandHelp("CJP contentsync from remotes\r\n\t" + "Gets an export from the remote site and syncs this site with it")]
+        [CommandHelp("CJP contentsync from remote\r\n\t" + "Gets an export from the remote site and syncs this site with it")]
         [OrchardSwitches("Url,Username,Password")]
         public void RemoteSync() {
             var result = _contentExportService.GetContentExportFromUrl(Url, Username, Password);
