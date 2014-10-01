@@ -9,11 +9,11 @@ using Orchard.Logging;
 
 namespace CJP.ContentSync.ExportSteps
 {
-    public class ExecutedDataMigrationsExportStep : IExportEventHandler, ICustomExportStep
+    public class ExecutedContentMigrationsExportStep : IExportEventHandler, ICustomExportStep
     {
         private readonly IContentMigrationStateService _contentMigrationStateService;
 
-        public ExecutedDataMigrationsExportStep(IContentMigrationStateService contentMigrationStateService) 
+        public ExecutedContentMigrationsExportStep(IContentMigrationStateService contentMigrationStateService) 
         {
             _contentMigrationStateService = contentMigrationStateService;
 

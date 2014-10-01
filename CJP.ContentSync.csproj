@@ -61,9 +61,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ContentMigrations\Bede.Feature1\RemovedWelcomeWidget.Recipe.xml" />
-    <Content Include="ContentMigrations\Bede.Feature1\MigratedToNewSlider.Recipe.xml" />
-    <Content Include="ContentMigrations\Bede.Feature2\EnabledRedisCaching.Recipe.xml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Styles\Web.config" />
@@ -95,7 +92,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ExportSteps\ContentTrimExportStep.cs" />
     <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
-    <Compile Include="ExportSteps\ExecutedDataMigrationsExportStep.cs" />
+    <Compile Include="ExportSteps\ExecutedContentMigrationsExportStep.cs" />
     <Compile Include="Migrations\DataMigrations.cs" />
     <Compile Include="Models\ApiResult.cs" />
     <Compile Include="Models\ApiResultStatus.cs" />
@@ -120,7 +117,9 @@
     <Compile Include="Services\IContentMigrationStateService.cs" />
     <Compile Include="Models\MigrationExectutionSummary.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ContentMigrations\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
