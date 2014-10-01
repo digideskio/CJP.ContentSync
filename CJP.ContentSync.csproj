@@ -61,6 +61,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ContentMigrations\Bede.Feature1\RemovedWelcomeWidget.Recipe.xml" />
+    <Content Include="ContentMigrations\Bede.Feature1\MigratedToNewSlider.Recipe.xml" />
+    <Content Include="ContentMigrations\Bede.Feature2\EnabledRedisCaching.Recipe.xml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Styles\Web.config" />
@@ -103,7 +106,7 @@
     <Compile Include="Providers\RecipeContentMigrationProvider.cs" />
     <Compile Include="RecipeHandlers\ContentTrimRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\DeleteContentRecipeStepHandler.cs" />
-    <Compile Include="RecipeHandlers\ExecutedDataMigrationsRecipeStepHandler.cs" />
+    <Compile Include="RecipeHandlers\ExecutedContentMigrationsRecipeStepHandler.cs" />
     <Compile Include="Providers\IContentMigrationProvider.cs" />
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
@@ -117,9 +120,7 @@
     <Compile Include="Services\IContentMigrationStateService.cs" />
     <Compile Include="Models\MigrationExectutionSummary.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ContentMigrations\CJP.ContentSync\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>

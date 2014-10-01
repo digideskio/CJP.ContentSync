@@ -24,7 +24,7 @@ namespace CJP.ContentSync.RecipeHandlers
          *   <ContentToKeep>
          *      <add identifier="123456789"/>
          *      <add identifier="321654897"/>
-         *   </ContentType>
+         *   </ContentToKeep>
          *  </ContentTrim>
          */
         public void ExecuteRecipeStep(RecipeContext recipeContext) {

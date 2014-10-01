@@ -25,9 +25,9 @@ namespace CJP.ContentSync.ExportSteps
         public Localizer T { get; set; }
 
         public void Exporting(ExportContext context) {
-            if (!context.ExportOptions.CustomSteps.Contains("Executed Data Migrations")) { return; }
+            if (!context.ExportOptions.CustomSteps.Contains("Sync Content Migrations")) { return; }
 
-            var xmlElement = new XElement("ExecutedDataMigrations");
+            var xmlElement = new XElement("ExecutedContentMigrations");
 
             foreach (var migration in _contentMigrationStateService.GetExecutedMigrations())
             {
@@ -49,7 +49,7 @@ namespace CJP.ContentSync.ExportSteps
         public void Exported(ExportContext context) {}
 
         public void Register(IList<string> steps) {
-            steps.Add("Executed Data Migrations");
+            steps.Add("Sync Content Migrations");
         }
     }
 }
