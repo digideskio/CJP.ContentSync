@@ -6,8 +6,7 @@ using Orchard.Security;
 
 namespace CJP.ContentSync.Controllers.API
 {
-    public class ContentExportController : Controller
-    {
+    public class ContentExportController : Controller {
         private readonly IContentExportService _contentExportService;
         private readonly IMembershipService _membershipService;
         private readonly IAuthenticationService _authenticationService;
@@ -23,12 +22,10 @@ namespace CJP.ContentSync.Controllers.API
 
 
         [HttpGet]
-        public ActionResult Index(string username, string password)
-        {
+        public ActionResult Index(string username, string password) {
             var user = _membershipService.ValidateUser(username, password);
 
-            if (user == null)
-            {
+            if (user == null) {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 Response.End();
                 return new HttpUnauthorizedResult();
@@ -36,8 +33,7 @@ namespace CJP.ContentSync.Controllers.API
 
             _authenticationService.SignIn(user, false);
 
-            if (!_authorizer.Authorize(ApiPermissions.ContentExportApi))
-            {
+            if (!_authorizer.Authorize(ApiPermissions.ContentExportApi)){
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 Response.End();
                 return new HttpUnauthorizedResult();

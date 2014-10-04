@@ -92,7 +92,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ExportSteps\ContentTrimExportStep.cs" />
     <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
-    <Compile Include="ExportSteps\ExecutedContentMigrationsExportStep.cs" />
+    <Compile Include="ExportSteps\ExecutedDataMigrationsExportStep.cs" />
     <Compile Include="Migrations\DataMigrations.cs" />
     <Compile Include="Models\ApiResult.cs" />
     <Compile Include="Models\ApiResultStatus.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Providers\RecipeContentMigrationProvider.cs" />
     <Compile Include="RecipeHandlers\ContentTrimRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\DeleteContentRecipeStepHandler.cs" />
-    <Compile Include="RecipeHandlers\ExecutedContentMigrationsRecipeStepHandler.cs" />
+    <Compile Include="RecipeHandlers\ExecutedDataMigrationsRecipeStepHandler.cs" />
     <Compile Include="Providers\IContentMigrationProvider.cs" />
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="Models\MigrationExectutionSummary.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ContentMigrations\" />
+    <Folder Include="ContentMigrations\CJP.ContentSync\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
