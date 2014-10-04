@@ -37,8 +37,8 @@ namespace CJP.ContentSync.RecipeHandlers
                 .Where(f => featureIds.Contains(f.Id)) //available features that are in the list of features that need to be enabled
                 .Where(f=> !enabledFeatures.Select(ef=>ef.Id).Contains(f.Id)); //remove features that are already enabled
 
-            _featureManager.DisableFeatures(featuresToDisable.Select(f => f.Id));
-            _featureManager.EnableFeatures(featuresToEnable.Select(f => f.Id));
+            _featureManager.DisableFeatures(featuresToDisable.Select(f => f.Id), true);
+            _featureManager.EnableFeatures(featuresToEnable.Select(f => f.Id), true);
 
             recipeContext.Executed = true;
         }
