@@ -80,6 +80,10 @@
       <Project>{FE5C5947-D2D5-42C5-992A-13D672946135}</Project>
       <Name>Orchard.ImportExport</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Themes\Orchard.Themes.csproj">
+      <Project>{CDE24A24-01D3-403C-84B9-37722E18DFB7}</Project>
+      <Name>Orchard.Themes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Widgets\Orchard.Widgets.csproj">
       <Project>{194D3CCC-1153-474D-8176-FDE8D7D0D0BD}</Project>
       <Name>Orchard.Widgets</Name>
@@ -87,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ContentMigrationCommands.cs" />
+    <Compile Include="ExportSteps\CurrentThemeExportStep.cs" />
     <Compile Include="Models\AdminImportVM.cs" />
     <Compile Include="Controllers\API\ContentExportController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="RecipeHandlers\ExecutedDataMigrationsRecipeStepHandler.cs" />
     <Compile Include="Providers\IContentMigrationProvider.cs" />
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
+    <Compile Include="RecipeHandlers\CurrentThemeRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
     <Compile Include="Services\DefaultContentExportService.cs" />
     <Compile Include="Services\IContentExportService.cs" />
