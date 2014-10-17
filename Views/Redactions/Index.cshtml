@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CJP.ContentSync.Models.RedactionRecord>
+
+@{
+    Layout.Title = T("Content Sync - Redactions");
+}
+
+<p>
+    @T("Redactions allow you to remove values from content when exporting, and then replace them with different values when importing. A good use of this would be to change the path of media files embedded into content if it differed between your environments.")
+</p>
+<div class="manage">
+    @Html.ActionLink(T("Add").Text, "EditRedaction", "Redactions", null, new { @class = "button primaryAction" })
+</div>
+<br/>
+<br/>
+
+<table class="items">
+    <tr>
+        <th>@T("Regex to match")</th>
+        <th>@T("Placeholder")</th>
+        <th>@T("Replace with")</th>
+        <th></th>
+    </tr>
+    @foreach (var redaction in Model) {
+        <tr>
+            <td>@redaction.Regex</td>
+            <td>@redaction.Placeholder</td>
+            <td>@redaction.ReplaceWith</td>
+            <td>@Html.ActionLink(T("Edit").Text, "EditRedaction", "Redactions", new { redaction.Id })</td>
+        </tr>
+    }
+</table>

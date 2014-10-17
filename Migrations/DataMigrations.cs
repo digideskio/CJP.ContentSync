@@ -15,5 +15,16 @@ namespace CJP.ContentSync.Migrations
 
             return 1;
         }
+
+        public int UpdateFrom1()
+        {
+            SchemaBuilder.CreateTable(typeof(RedactionRecord).Name, table => table
+                .Column<int>("Id", column => column.PrimaryKey().Identity())
+                .Column<string>("Regex")
+                .Column<string>("Placeholder")
+                .Column<string>("ReplaceWith"));
+
+            return 2;
+        }
     }
 }
