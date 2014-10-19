@@ -8,9 +8,9 @@ namespace CJP.ContentSync.Services {
         string RedactText(string text);
         string RestoreText(string text);
 
-        void AddRedaction(RedactionRecord redaction);
-        void UpdateRedaction(RedactionRecord redaction);
-        void DeleteRedaction(RedactionRecord redaction);
+        RedactionOperationStatus AddRedaction(RedactionRecord redaction);
+        RedactionOperationStatus UpdateRedaction(RedactionRecord redaction);
+        RedactionOperationStatus DeleteRedaction(RedactionRecord redaction);
         RedactionRecord GetRedaction(int id);
         IEnumerable<RedactionRecord> GetRedactions();
     }

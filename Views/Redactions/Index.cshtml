@@ -8,7 +8,7 @@
     @T("Redactions allow you to remove values from content when exporting, and then replace them with different values when importing. A good use of this would be to change the path of media files embedded into content if it differed between your environments.")
 </p>
 <div class="manage">
-    @Html.ActionLink(T("Add").Text, "EditRedaction", "Redactions", null, new { @class = "button primaryAction" })
+    @Html.ActionLink(T("Add").Text, "Edit", "Redactions", null, new { @class = "button primaryAction" })
 </div>
 <br/>
 <br/>
@@ -25,7 +25,11 @@
             <td>@redaction.Regex</td>
             <td>@redaction.Placeholder</td>
             <td>@redaction.ReplaceWith</td>
-            <td>@Html.ActionLink(T("Edit").Text, "EditRedaction", "Redactions", new { redaction.Id })</td>
+            <td>@Html.ActionLink(T("Edit").Text, "Edit", "Redactions", new { redaction.Id }, null)</td>
         </tr>
     }
 </table>
+
+<span class="hint">
+    @T("Note- the redactions are performed in the order specified above. If a piece of text matches multiple regexes, the placeholders will be applied in the order above.")
+</span>

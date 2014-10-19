@@ -1,0 +1,35 @@
+﻿@model CJP.ContentSync.Models.RedactionRecord
+
+@{
+    Layout.Title = T("Content Sync - Redactions");
+}
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    <div>
+        @Html.LabelFor(m => m.Regex, T("Regex to match"))
+        @Html.TextBoxFor(m => m.Regex)
+        <span class="hint">
+            @T("When exporting content, all matches for this regex will be replaced with the placeholder value")
+        </span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Placeholder, T("Placeholder"))
+        @Html.TextBoxFor(m => m.Placeholder)
+        <span class="hint">
+            @T("When exporting redacted content, all matches of the the regex will be reolaced with this value")
+        </span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ReplaceWith, T("Replace with"))
+        @Html.TextBoxFor(m => m.ReplaceWith)
+        <span class="hint">
+            @T("When importing redacted content, all instances of the placeholder will be replaced with this")
+        </span>
+    </div>
+
+    <div class="actions">
+        <button type="submit">Save</button>
+    </div>
+}

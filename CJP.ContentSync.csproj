@@ -97,6 +97,7 @@
     <Compile Include="Commands\ContentMigrationCommands.cs" />
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
+    <Compile Include="Models\RedactionOperationStatus.cs" />
     <Compile Include="Services\DefaultTextRedactionService.cs" />
     <Compile Include="Services\ITextRedactionService.cs" />
     <Compile Include="Models\RedactionRecord.cs" />
@@ -142,7 +143,7 @@
     <Content Include="Views\Redactions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Redactions\EditRedaction.cshtml" />
+    <Content Include="Views\Redactions\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -33,16 +33,24 @@ namespace CJP.ContentSync.Services {
             return text;
         }
 
-        public void AddRedaction(RedactionRecord redaction) {
+        public RedactionOperationStatus AddRedaction(RedactionRecord redaction) {
             _repository.Create(redaction);
+
+            return RedactionOperationStatus.Created;
         }
 
-        public void UpdateRedaction(RedactionRecord redaction){
+        public RedactionOperationStatus UpdateRedaction(RedactionRecord redaction)
+        {
             _repository.Update(redaction);
+
+            return RedactionOperationStatus.Updated;
         }
 
-        public void DeleteRedaction(RedactionRecord redaction){
+        public RedactionOperationStatus DeleteRedaction(RedactionRecord redaction)
+        {
             _repository.Delete(redaction);
+
+            return RedactionOperationStatus.Removed;
         }
 
         public RedactionRecord GetRedaction(int id) {
@@ -50,11 +58,11 @@ namespace CJP.ContentSync.Services {
         }
 
         public IEnumerable<RedactionRecord> GetRedactions() {
-            return _repository.Table.ToList();
+            return _repository.Table.ToList().OrderBy(r=>r.Id);
         }
 
         private string CreatePlaceholder(string token) {
-            return "$##" + token + "##";
+            return "$##" + token + "##$";
         }
     }
 }
