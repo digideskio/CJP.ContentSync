@@ -71,7 +71,7 @@ namespace CJP.ContentSync.Controllers
                     _notifier.Information(T("Redaction updated"));
                     break;
                 case RedactionOperationStatus.PlaceholderNotUnique:
-                    _notifier.Error(T("Redaction could not be saved because the Placeholder was not unique. Ensure that the placeholder you specify does not already exist for another redaction."));
+                    _notifier.Error(T("Redaction could not be saved because the Placeholder was not unique. Ensure that the placeholder you choose does not already exist for another redaction."));
                     return View(redaction);
             }
 

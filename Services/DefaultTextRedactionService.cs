@@ -33,7 +33,13 @@ namespace CJP.ContentSync.Services {
             return text;
         }
 
-        public RedactionOperationStatus AddRedaction(RedactionRecord redaction) {
+        public RedactionOperationStatus AddRedaction(RedactionRecord redaction)
+        {
+            if (!PlaceholderIsValid(redaction)) 
+            {
+                return RedactionOperationStatus.PlaceholderNotUnique;
+            }
+
             _repository.Create(redaction);
 
             return RedactionOperationStatus.Created;
@@ -41,6 +47,11 @@ namespace CJP.ContentSync.Services {
 
         public RedactionOperationStatus UpdateRedaction(RedactionRecord redaction)
         {
+            if (!PlaceholderIsValid(redaction))
+            {
+                return RedactionOperationStatus.PlaceholderNotUnique;
+            }
+
             _repository.Update(redaction);
 
             return RedactionOperationStatus.Updated;
@@ -63,6 +74,16 @@ namespace CJP.ContentSync.Services {
 
         private string CreatePlaceholder(string token) {
             return "$##" + token + "##$";
+        }
+
+        private bool PlaceholderIsValid(RedactionRecord redaction) {
+            var currentRedaction = GetRedactions().FirstOrDefault(r => r.Placeholder == redaction.Placeholder);
+
+            if (currentRedaction == null) {
+                return true;
+            }
+
+            return currentRedaction.Id == redaction.Id;
         }
     }
 }
