@@ -33,7 +33,7 @@ namespace CJP.ContentSync.Controllers.API
 
             _authenticationService.SignIn(user, false);
 
-            if (!_authorizer.Authorize(ApiPermissions.ContentExportApi)){
+            if (!_authorizer.Authorize(ContentSyncPermissions.ContentExportApi)){
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 Response.End();
                 return new HttpUnauthorizedResult();

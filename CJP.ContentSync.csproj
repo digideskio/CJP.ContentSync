@@ -80,6 +80,10 @@
       <Project>{FE5C5947-D2D5-42C5-992A-13D672946135}</Project>
       <Name>Orchard.ImportExport</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.MediaLibrary\Orchard.MediaLibrary.csproj">
+      <Project>{73A7688A-5BD3-4F7E-ADFA-CE36C5A10E3B}</Project>
+      <Name>Orchard.MediaLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Themes\Orchard.Themes.csproj">
       <Project>{CDE24A24-01D3-403C-84B9-37722E18DFB7}</Project>
       <Name>Orchard.Themes</Name>
@@ -91,6 +95,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ContentMigrationCommands.cs" />
+    <Compile Include="Controllers\RedactionsController.cs" />
+    <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
+    <Compile Include="Models\RedactionOperationStatus.cs" />
+    <Compile Include="Models\BackupRecord.cs" />
+    <Compile Include="Services\DefaultTextRedactionService.cs" />
+    <Compile Include="Services\ITextRedactionService.cs" />
+    <Compile Include="Models\RedactionRecord.cs" />
     <Compile Include="ExportSteps\CurrentThemeExportStep.cs" />
     <Compile Include="Models\AdminImportVM.cs" />
     <Compile Include="Controllers\API\ContentExportController.cs" />
@@ -102,7 +113,7 @@
     <Compile Include="Models\ApiResult.cs" />
     <Compile Include="Models\ApiResultStatus.cs" />
     <Compile Include="Models\MigrationExecutionRecord.cs" />
-    <Compile Include="Permissions\ApiPermissions.cs" />
+    <Compile Include="Permissions\ContentSyncPermissions.cs" />
     <Compile Include="Providers\AdminMenu.cs" />
     <Compile Include="Providers\FakeMigrationTrigger.cs" />
     <Compile Include="Providers\RecipeContentMigrationProvider.cs" />
@@ -128,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Redactions\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Redactions\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
