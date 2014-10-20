@@ -98,6 +98,7 @@
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
     <Compile Include="Models\RedactionOperationStatus.cs" />
+    <Compile Include="Models\BackupRecord.cs" />
     <Compile Include="Services\DefaultTextRedactionService.cs" />
     <Compile Include="Services\ITextRedactionService.cs" />
     <Compile Include="Models\RedactionRecord.cs" />
