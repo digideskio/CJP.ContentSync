@@ -34,7 +34,8 @@ namespace CJP.ContentSync.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new AdminImportVM { Url = "http://localhost:30321/orchardlocal", Username="OrchardAdmin", Password = "Password"});
+            //return View(new AdminImportVM { Url = "http://localhost:30321/orchardlocal", Username = "OrchardAdmin", Password = "Password" });
+            return View(new AdminImportVM ());
         }
 
         [HttpPost]
@@ -65,7 +66,7 @@ namespace CJP.ContentSync.Controllers
             }
 
             if (journal.Status == RecipeStatus.Started) {
-                _orchardServices.Notifier.Information(T("Site content is in the process of bein synced, but has not yet completed. You can refresh this page to monitor the progress of your sync"));
+                _orchardServices.Notifier.Information(T("Site content is in the process of being synced, but has not yet completed. You can refresh this page to monitor the progress of your sync"));
             }
             else
             {
