@@ -24,8 +24,12 @@
                     <td>@config.Username</td>
                     <td>@(config.LastSynced.HasValue ?config.LastSynced.ToString():"Never")</td>
                     <td>
-                        
-                        @Html.ActionLink(T("Sync").Text, "Edit", "Redactions", new { config.Id }, null)
+                        @using (Html.BeginFormAntiForgeryPost(Url.Action("RemoteConfig")))
+                        {
+                            @Html.Hidden("id", config.Id)
+                            <button type="submit" name="sync" value="sync" class="link">@T("Sync with this config")</button> <text> | </text>
+                            <button type="submit" name="delete" value="delete" class="link">@T("Delete")</button>
+                        }
                     </td>
                 </tr>
             }

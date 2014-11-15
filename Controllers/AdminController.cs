@@ -88,14 +88,42 @@ namespace CJP.ContentSync.Controllers
         [FormValueRequired("saveConfig")]
         public ActionResult IndexPostSave(AdminImportVM vm)
         {
-            _remoteConfigRepository.Create(new RemoteSiteConfigRecord {
+            _remoteConfigRepository.Create(new RemoteSiteConfigRecord
+            {
                 //LastSynced = null,
                 Url = vm.Url,
                 Username = vm.Username,
                 Password = vm.Password
             });
 
-            _orchardServices.Notifier.Information(T("The remote site details have been saved. You can now sync with that site with a single click by using the 'Sync' link next to the site config in the table below."));
+            _orchardServices.Notifier.Information(T("The remote site details have been saved. You can now sync with that site with a single click by using the 'Sync with this config' link next to the site config in the table below."));
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ActionName("RemoteConfig")]
+        [FormValueRequired("sync")]
+        public ActionResult RemoteConfigPostSync(int id) {
+            var config = _remoteConfigRepository.Get(id);
+
+            if (config == null)
+            {
+                _orchardServices.Notifier.Warning(T("The site details you attempted to sync with no longer exist."));
+                return RedirectToAction("Index");
+            }
+
+            return IndexPost(new AdminImportVM {Password = config.Password, Url = config.Url, Username = config.Username});
+        }
+
+        [HttpPost]
+        [ActionName("RemoteConfig")]
+        [FormValueRequired("delete")]
+        public ActionResult RemoteConfigPostDelete(int id)
+        {
+            _remoteConfigRepository.Delete(new RemoteSiteConfigRecord{Id = id});
+
+            _orchardServices.Notifier.Information(T("The selected remote site details have been removed."));
 
             return RedirectToAction("Index");
         }
