@@ -95,10 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ContentMigrationCommands.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
     <Compile Include="Models\RedactionOperationStatus.cs" />
-    <Compile Include="Models\BackupRecord.cs" />
+    <Compile Include="Models\RemoteSiteConfigRecord.cs" />
+    <Compile Include="Models\SnapshotRecord.cs" />
     <Compile Include="Services\DefaultTextRedactionService.cs" />
     <Compile Include="Services\ITextRedactionService.cs" />
     <Compile Include="Models\RedactionRecord.cs" />
@@ -133,6 +135,8 @@
     <Compile Include="Services\IContentMigrationManager.cs" />
     <Compile Include="Services\IContentMigrationStateService.cs" />
     <Compile Include="Models\MigrationExectutionSummary.cs" />
+    <Compile Include="Tasks\SnapshotTask.cs" />
+    <Compile Include="Tasks\SnapshotTasnkManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ContentMigrations\CJP.ContentSync\" />

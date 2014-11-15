@@ -26,5 +26,27 @@ namespace CJP.ContentSync.Migrations
 
             return 2;
         }
+
+        public int UpdateFrom2()
+        {
+            SchemaBuilder.CreateTable(typeof(SnapshotRecord).Name, table => table
+                .Column<int>("Id", column => column.PrimaryKey().Identity())
+                .Column<DateTime>("TimeTaken")
+                .Column<string>("Data", column => column.Unlimited()));
+
+            return 3;
+        }
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.CreateTable(typeof(RemoteSiteConfigRecord).Name, table => table
+                .Column<int>("Id", column => column.PrimaryKey().Identity())
+                .Column<DateTime?>("LastSynced", column => column.Nullable())
+                .Column<string>("Url")
+                .Column<string>("Username")
+                .Column<string>("Password"));
+
+            return 4;
+        }
     }
 }

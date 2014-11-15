@@ -1,7 +1,7 @@
 using System;
 
 namespace CJP.ContentSync.Models {
-    public class BackupRecord
+    public class SnapshotRecord
     {
         public virtual int Id { get; set; }
         public virtual DateTime TimeTaken { get; set; }

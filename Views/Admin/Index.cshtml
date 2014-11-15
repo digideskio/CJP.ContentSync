@@ -1,15 +1,51 @@
-﻿@model CJP.ContentSync.Models.AdminImportVM
+﻿@using CJP.ContentSync.Permissions
+@model CJP.ContentSync.Models.AdminImportVM
 
 @{
     Layout.Title = T("Content Sync");
 }
 
-@using (Html.BeginFormAntiForgeryPost()) {
+<fieldset>
+    <legend>@T("Site details")</legend>
+    @if (Model.SavedRemoteSiteConfigs.Any())
+    {
+        <p>@T("Your saved remote sites:")</p>
+        <table class="items">
+            <tr>
+                <th>@T("Url of remote site")</th>
+                <th>@T("Remote username")</th>
+                <th>@T("Last synced")</th>
+                <th></th>
+            </tr>
+            @foreach (var config in Model.SavedRemoteSiteConfigs)
+            {
+                <tr>
+                    <td>@config.Url</td>
+                    <td>@config.Username</td>
+                    <td>@(config.LastSynced.HasValue ?config.LastSynced.ToString():"Never")</td>
+                    <td>
+                        
+                        @Html.ActionLink(T("Sync").Text, "Edit", "Redactions", new { config.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>@T("You have no saved remote site details. Clicking 'Save Config' below will allow you to save remote site details for use later.")</p>
+        <p class="hint">@T(" Note: passwords are stored in plain text. You should ensure that the user account you save has only the '{0}' permission.", ContentSyncPermissions.ContentExportApi.Name)</p>
+    }
+    
+    <hr/>
 
-    <fieldset>
-        <legend>@T("Site details")</legend>
+    @using (Html.BeginFormAntiForgeryPost())
+    {
         <p>
-            @T("Provide the URL for the remote site, and the Username and Password of a user that has the correct permissions to provide a site export")
+            @T("You can manually provide the required details for the remote site to sync with.")
+        </p>
+        <p>
+            @T("Provide the URL for the remote site, and the Username and Password of a user that has the correct permissions to provide a site export:")
         </p>
         <div>
             @Html.LabelFor(m => m.Url)
@@ -26,8 +62,9 @@
             @Html.PasswordFor(m => m.Password)
             <span class="hint">@T("The password for the account specified above")</span>
         </div>
-    </fieldset>
-    <div class="actions">
-        <button type="submit">@T("Sync Content")</button>
-    </div>
-}
+        <div class="actions">
+            <button type="submit" name="saveConfig" value="saveConfig" class="button grey">@T("Save Config")</button>
+            <button type="submit" name="syncContent" value="syncContent">@T("Sync Content")</button>
+        </div>
+    }
+</fieldset>
