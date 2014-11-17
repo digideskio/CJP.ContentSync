@@ -71,7 +71,7 @@ namespace CJP.ContentSync.Controllers
                 return View("Index", new AdminImportVM());
             }
 
-            if (journal.Status == RecipeStatus.Started)
+            if (journal.Status == RecipeStatus.Started){
                 _orchardServices.Notifier.Information(T("Site content is in the process of being synced, but has not yet completed. You can refresh this page to monitor the progress of your sync"));
             }
             else
