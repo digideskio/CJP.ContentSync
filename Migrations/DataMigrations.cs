@@ -41,7 +41,7 @@ namespace CJP.ContentSync.Migrations
         {
             SchemaBuilder.CreateTable(typeof(RemoteSiteConfigRecord).Name, table => table
                 .Column<int>("Id", column => column.PrimaryKey().Identity())
-                .Column<DateTime?>("LastSynced", column => column.Nullable())
+                .Column<DateTime>("LastSynced", column => column.Nullable())
                 .Column<string>("Url")
                 .Column<string>("Username")
                 .Column<string>("Password"));
