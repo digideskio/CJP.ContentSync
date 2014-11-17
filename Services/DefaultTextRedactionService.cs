@@ -16,7 +16,9 @@ namespace CJP.ContentSync.Services {
             var redactions = GetRedactions();
 
             foreach (var redaction in redactions) {
-                text = Regex.Replace(text, redaction.Regex, CreatePlaceholder(redaction.Placeholder));
+                if (text != null) {
+                    text = Regex.Replace(text, redaction.Regex, CreatePlaceholder(redaction.Placeholder));
+                }
             }
 
             return text;
