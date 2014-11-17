@@ -39,7 +39,7 @@ namespace CJP.ContentSync.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new AdminImportVM { Url = "http://localhost:30321/orchardlocal", Username="OrchardAdmin", Password = "Password", SavedRemoteSiteConfigs = _remoteConfigRepository.Table.ToList()});
+            return View(new AdminImportVM { SavedRemoteSiteConfigs = _remoteConfigRepository.Table.ToList()});
         }
 
         [HttpPost]
