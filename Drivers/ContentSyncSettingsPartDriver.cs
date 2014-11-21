@@ -38,8 +38,8 @@ namespace CJP.ContentSync.Drivers {
                     _customExportSteps.Register(customSteps);
 
                     part.AllContentTypes = _contentManager.GetContentTypeDefinitions().OrderBy(ctd => ctd.Name).Select(ctd => new SelectableItem<string> { Item = ctd.Name, IsSelected = part.AvailableContentTypes.Contains(ctd.Name) }).ToList();
-                    part.AllExportSteps = customSteps.OrderBy(n => n).Select(cs => new SelectableItem<string> { Item = cs, IsSelected = part.AvailableContentTypes.Contains(cs) }).ToList();
-                    part.AllSiteSettings = GetExportableSettings().OrderBy(n => n).Select(p => new SelectableItem<string> { Item = p, IsSelected = part.AvailableContentTypes.Contains(p) }).ToList();
+                    part.AllExportSteps = customSteps.OrderBy(n => n).Select(cs => new SelectableItem<string> { Item = cs, IsSelected = part.AvailableExportSteps.Contains(cs) }).ToList();
+                    part.AllSiteSettings = GetExportableSettings().OrderBy(n => n).Select(p => new SelectableItem<string> { Item = p, IsSelected = part.AvailableSiteSettings.Contains(p) }).ToList();
                     
                     return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: part, Prefix: Prefix);
                 })
@@ -50,9 +50,13 @@ namespace CJP.ContentSync.Drivers {
         {
             return ContentShape("Parts_ContentSyncSettings_Edit", () =>
             {
-                    return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: part, Prefix: Prefix);
-                })
-                .OnGroup("Content Sync");
+                updater.TryUpdateModel(part, Prefix, null, null);
+                part.AvailableContentTypes = part.AllContentTypes.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+                part.AvailableExportSteps = part.AllExportSteps.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+                part.AvailableSiteSettings = part.AllSiteSettings.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+
+                return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: part, Prefix: Prefix);
+            }).OnGroup("Content Sync");
         }
 
         private IEnumerable<string> GetExportableSettings()
