@@ -1,0 +1,50 @@
+﻿@using Orchard.Mvc.Html
+@using Orchard.Utility.Extensions
+@model CJP.ContentSync.Models.ContentSyncSettingsPart
+
+<fieldset>
+    <legend>@T("Content Sync Settings")</legend>
+    <p>@T("These settings allow you to control exactly what can be exported by the Content Sync API endpoint")</p>
+    <div>
+        <h3>@T("Content Types to export")</h3>
+        <p>@T("Only the Content Types selected below will be synced:")</p>
+        <ul>
+            @for (var i = 0; i < Model.AllContentTypes.Count; i++)
+            {
+                <li>
+                    <input type="hidden" value="@Model.AllContentTypes[i].Item" name="@Html.NameOf(m => m.AllContentTypes[i].Item)" />
+                    <input type="checkbox" value="true" name="@Html.NameOf(m => m.AllContentTypes[i].IsSelected)" id="@Html.NameOf(m => m.AllContentTypes[i].IsSelected)" />
+                    <label class="forcheckbox" for="@Html.NameOf(m => m.AllContentTypes[i].IsSelected)">@Model.AllContentTypes[i].Item.CamelFriendly()</label>
+                </li>
+            }
+        </ul>  
+    </div>
+    <div>
+        <h3>@T("Export Steps to be executed")</h3>
+        <p>@T("Only the Export Steps selected below will be executed:")</p>   
+        <ul>
+            @for (var i = 0; i < Model.AllExportSteps.Count; i++)
+            {
+                <li>
+                    <input type="hidden" value="@Model.AllExportSteps[i].Item" name="@Html.NameOf(m => m.AllExportSteps[i].Item)" />
+                    <input type="checkbox" value="true" name="@Html.NameOf(m => m.AllExportSteps[i].IsSelected)" id="@Html.NameOf(m => m.AllExportSteps[i].IsSelected)" />
+                    <label class="forcheckbox" for="@Html.NameOf(m => m.AllExportSteps[i].IsSelected)">@Model.AllExportSteps[i].Item.CamelFriendly()</label>
+                </li>
+            }
+        </ul>   
+    </div>
+    <div>
+        <h3>@T("Site Settings to be exported")</h3>
+        <p>@T("Only the site settings selected below will be exported. You can use this feature to prevent sensitive settings from being exported. Alternatively; you can also add redactions for site settings in order to mask settings, or transform them through environments:")</p>
+        <ul>
+            @for (var i = 0; i < Model.AllSiteSettings.Count; i++)
+            {
+                <li>
+                    <input type="hidden" value="@Model.AllSiteSettings[i].Item" name="@Html.NameOf(m => m.AllSiteSettings[i].Item)" />
+                    <input type="checkbox" value="true" name="@Html.NameOf(m => m.AllSiteSettings[i].IsSelected)" id="@Html.NameOf(m => m.AllSiteSettings[i].IsSelected)" />
+                    <label class="forcheckbox" for="@Html.NameOf(m => m.AllSiteSettings[i].IsSelected)">@Model.AllSiteSettings[i].Item.CamelFriendly()</label>
+                </li>
+            }
+        </ul> 
+    </div>
+</fieldset>

@@ -48,5 +48,16 @@ namespace CJP.ContentSync.Migrations
 
             return 4;
         }
+
+        public int UpdateFrom4()
+        {
+            SchemaBuilder.CreateTable(typeof(ContentSyncSettingsRecord).Name, table => table
+                .ContentPartRecord()
+                .Column<string>("AvailableExportSteps", column => column.Unlimited())
+                .Column<string>("AvailableSiteSettings", column => column.Unlimited())
+                .Column<string>("AvailableContentTypes", column => column.Unlimited()));
+
+            return 5;
+        }
     }
 }
