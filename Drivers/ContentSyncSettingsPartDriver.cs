@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using CJP.ContentSync.Models;
 using Orchard;
 using Orchard.ContentManagement;
@@ -37,9 +36,9 @@ namespace CJP.ContentSync.Drivers {
                     var customSteps = new List<string>();
                     _customExportSteps.Register(customSteps);
 
-                    part.AllContentTypes = _contentManager.GetContentTypeDefinitions().OrderBy(ctd => ctd.Name).Select(ctd => new SelectableItem<string> { Item = ctd.Name, IsSelected = part.AvailableContentTypes.Contains(ctd.Name) }).ToList();
-                    part.AllExportSteps = customSteps.OrderBy(n => n).Select(cs => new SelectableItem<string> { Item = cs, IsSelected = part.AvailableExportSteps.Contains(cs) }).ToList();
-                    part.AllSiteSettings = GetExportableSettings().OrderBy(n => n).Select(p => new SelectableItem<string> { Item = p, IsSelected = part.AvailableSiteSettings.Contains(p) }).ToList();
+                    part.AllContentTypes = _contentManager.GetContentTypeDefinitions().OrderBy(ctd => ctd.Name).Select(ctd => new SelectableItem<string> { Item = ctd.Name, IsSelected = part.ExcludedContentTypes.Contains(ctd.Name) }).ToList();
+                    part.AllExportSteps = customSteps.OrderBy(n => n).Select(cs => new SelectableItem<string> { Item = cs, IsSelected = part.ExcludedExportSteps.Contains(cs) }).ToList();
+                    part.AllSiteSettings = GetExportableSettings().OrderBy(n => n).Select(p => new SelectableItem<string> { Item = p, IsSelected = part.ExcludedSiteSettings.Contains(p) }).ToList();
                     
                     return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: part, Prefix: Prefix);
                 })
@@ -51,9 +50,9 @@ namespace CJP.ContentSync.Drivers {
             return ContentShape("Parts_ContentSyncSettings_Edit", () =>
             {
                 updater.TryUpdateModel(part, Prefix, null, null);
-                part.AvailableContentTypes = part.AllContentTypes.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
-                part.AvailableExportSteps = part.AllExportSteps.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
-                part.AvailableSiteSettings = part.AllSiteSettings.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+                part.ExcludedContentTypes = part.AllContentTypes.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+                part.ExcludedExportSteps = part.AllExportSteps.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
+                part.ExcludedSiteSettings = part.AllSiteSettings.Where(i => i.IsSelected).Select(i => i.Item).ToArray();
 
                 return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: part, Prefix: Prefix);
             }).OnGroup("Content Sync");

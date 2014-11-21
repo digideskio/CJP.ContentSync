@@ -5,28 +5,26 @@ namespace CJP.ContentSync.Models
 {
     public class ContentSyncSettingsPart : ContentPart<ContentSyncSettingsRecord>
     {
-        public string[] AvailableExportSteps
+        public string[] ExcludedExportSteps
         {
-            get { return (Record.AvailableExportSteps ?? "").Split('#'); }
-            set { Record.AvailableExportSteps = string.Join("#", value); }
+            get { return (Record.ExcludedExportSteps ?? "").Split('#'); }
+            set { Record.ExcludedExportSteps = string.Join("#", value); }
         }
 
-        public string[] AvailableSiteSettings
+        public string[] ExcludedSiteSettings
         {
-            get { return (Record.AvailableSiteSettings ?? "").Split('#'); }
-            set { Record.AvailableSiteSettings = string.Join("#", value); }
+            get { return (Record.ExcludedSiteSettings ?? "").Split('#'); }
+            set { Record.ExcludedSiteSettings = string.Join("#", value); }
         }
 
-        public string[] AvailableContentTypes
+        public string[] ExcludedContentTypes
         {
-            get { return (Record.AvailableContentTypes ?? "").Split('#'); }
-            set { Record.AvailableContentTypes = string.Join("#", value); }
+            get { return (Record.ExcludedContentTypes ?? "").Split('#'); }
+            set { Record.ExcludedContentTypes = string.Join("#", value); }
         }
 
         public IList<SelectableItem<string>> AllContentTypes { get; set; }
         public IList<SelectableItem<string>> AllExportSteps { get; set; }
         public IList<SelectableItem<string>> AllSiteSettings { get; set; }
-
-        public string Test { get; set; }
     }
 }

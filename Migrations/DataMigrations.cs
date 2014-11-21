@@ -53,9 +53,9 @@ namespace CJP.ContentSync.Migrations
         {
             SchemaBuilder.CreateTable(typeof(ContentSyncSettingsRecord).Name, table => table
                 .ContentPartRecord()
-                .Column<string>("AvailableExportSteps", column => column.Unlimited())
-                .Column<string>("AvailableSiteSettings", column => column.Unlimited())
-                .Column<string>("AvailableContentTypes", column => column.Unlimited()));
+                .Column<string>("ExcludedExportSteps", column => column.Unlimited())
+                .Column<string>("ExcludedSiteSettings", column => column.Unlimited())
+                .Column<string>("ExcludedContentTypes", column => column.Unlimited()));
 
             return 5;
         }
