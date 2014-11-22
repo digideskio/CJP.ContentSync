@@ -109,6 +109,7 @@
     <Compile Include="Models\RedactionOperationStatus.cs" />
     <Compile Include="Models\RemoteSiteConfigRecord.cs" />
     <Compile Include="Models\SnapshotRecord.cs" />
+    <Compile Include="RecipeHandlers\SettingsRecipeHandler.cs" />
     <Compile Include="Services\DefaultTextRedactionService.cs" />
     <Compile Include="Services\ITextRedactionService.cs" />
     <Compile Include="Models\RedactionRecord.cs" />
