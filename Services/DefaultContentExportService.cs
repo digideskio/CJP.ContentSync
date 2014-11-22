@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CJP.ContentSync.Models;
+using Orchard;
 using Orchard.ContentManagement;
 using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
@@ -14,24 +15,32 @@ namespace CJP.ContentSync.Services {
         private readonly IImportExportService _importExportService;
         private readonly IContentManager _contentManager;
         private readonly ICustomExportStep _customExportStep;
+        private readonly IOrchardServices _orchardServices;
 
-        public DefaultContentExportService(IImportExportService importExportService, IContentManager contentManager, ICustomExportStep customExportStep)
+        public DefaultContentExportService(IImportExportService importExportService, IContentManager contentManager, ICustomExportStep customExportStep, IOrchardServices orchardServices)
         {
             _importExportService = importExportService;
             _contentManager = contentManager;
             _customExportStep = customExportStep;
+            _orchardServices = orchardServices;
 
             Logger = NullLogger.Instance;
         }
         public ILogger Logger { get; set; }
 
         public string GetContentExportText() {
+            var settings = _orchardServices.WorkContext.CurrentSite.As<ContentSyncSettingsPart>();
+
             var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).ToList();
-            contentTypes.Remove("Site");
-            contentTypes.Remove("User");
+            foreach (var contentType in settings.ExcludedContentTypes){
+                contentTypes.Remove(contentType);
+            }
 
             var customSteps = new List<string>();
             _customExportStep.Register(customSteps);
+            foreach (var exportStep in settings.ExcludedExportSteps){
+                customSteps.Remove(exportStep);
+            }
 
             return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
         }
@@ -40,21 +49,6 @@ namespace CJP.ContentSync.Services {
         {
             url = string.Format("{0}/contentsync/contentExport?username={1}&password={2}", url, username, password);
             var importText = string.Empty;
-
-
-            //using (var client = new HttpClient()) {
-            //    using (var response = await client.GetAsync(url)) {
-            //        using (var content = response.Content) {
-            //            string result = await content.ReadAsStringAsync();
-
-            //            // ... Display the result.
-            //            if (result != null &&
-            //                result.Length >= 50) {
-            //                //Console.WriteLine(result.Substring(0, 50) + "...");
-            //            }
-            //        }
-            //    }
-            //}
 
             try 
             {
