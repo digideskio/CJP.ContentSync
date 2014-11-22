@@ -101,6 +101,7 @@
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
     <Compile Include="Drivers\ContentSyncSettingsPartDriver.cs" />
+    <Compile Include="ExportSteps\RedactedSiteSettingsExportStep.cs" />
     <Compile Include="Handlers\ContentSyncSettingsPartHandler.cs" />
     <Compile Include="Models\SelectableItem.cs" />
     <Compile Include="Models\ContentSyncSettingsPart.cs" />
