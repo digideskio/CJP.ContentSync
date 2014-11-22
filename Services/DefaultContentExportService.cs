@@ -31,16 +31,11 @@ namespace CJP.ContentSync.Services {
         public string GetContentExportText() {
             var settings = _orchardServices.WorkContext.CurrentSite.As<ContentSyncSettingsPart>();
 
-            var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).ToList();
-            foreach (var contentType in settings.ExcludedContentTypes){
-                contentTypes.Remove(contentType);
-            }
+            var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).Except(settings.ExcludedContentTypes).ToList();
 
             var customSteps = new List<string>();
             _customExportStep.Register(customSteps);
-            foreach (var exportStep in settings.ExcludedExportSteps){
-                customSteps.Remove(exportStep);
-            }
+            customSteps = customSteps.Except(settings.ExcludedExportSteps).ToList();
 
             return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
         }
