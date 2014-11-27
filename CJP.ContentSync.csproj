@@ -113,6 +113,7 @@
     <Compile Include="Models\RedactionOperationStatus.cs" />
     <Compile Include="Models\RemoteSiteConfigRecord.cs" />
     <Compile Include="Models\SnapshotRecord.cs" />
+    <Compile Include="ExtensionMethods\ContentTypeExtensions.cs" />
     <Compile Include="RecipeHandlers\RedactionsRecipeHandler.cs" />
     <Compile Include="RecipeHandlers\RedactedSettingsRecipeHandler.cs" />
     <Compile Include="Services\DefaultRealtimeFeedbackService.cs" />

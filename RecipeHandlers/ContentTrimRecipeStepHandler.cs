@@ -4,12 +4,9 @@ using CJP.ContentSync.ExtensionMethods;
 using CJP.ContentSync.Services;
 using Orchard.ContentManagement;
 using Orchard.Core.Common.Models;
-using Orchard.Core.Title.Models;
 using Orchard.Localization;
 using Orchard.Recipes.Models;
 using Orchard.Recipes.Services;
-using Orchard.Users.Models;
-using Orchard.Widgets.Models;
 
 namespace CJP.ContentSync.RecipeHandlers
 {
@@ -77,22 +74,12 @@ namespace CJP.ContentSync.RecipeHandlers
 
             foreach (var contentItem in contentItems)
             {
-                _realtimeFeedbackService.Info(T("Removing {0} '{2}' (ID: {1})", contentItem.ContentItem.ContentType, contentItem.ContentItem.Id, GetContentName(contentItem.ContentItem)));
+                _realtimeFeedbackService.Info(T("Removing {0} '{2}' (ID: {1})", contentItem.ContentItem.ContentType, contentItem.ContentItem.Id, contentItem.ContentItem.GetContentName()));
                 _contentManager.Remove(contentItem.ContentItem);
             }
 
             _realtimeFeedbackService.Info(T("The 'Content Trim' step has successfully executed"));
             recipeContext.Executed = true;
-        }
-
-        private string GetContentName(IContent content)
-        {
-            if (content.Has<TitlePart>()) { return content.As<TitlePart>().Title; }
-            if (content.Has<WidgetPart>()) { return content.As<WidgetPart>().Title; }
-            if (content.Has<UserPart>()) { return content.As<UserPart>().UserName; }
-            if (content.Has<LayerPart>()) { return content.As<LayerPart>().Name; }
-
-            return "Unknown";
         }
     }
 }
