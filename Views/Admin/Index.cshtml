@@ -5,7 +5,16 @@
 
 @{
     Layout.Title = T("Content Sync");
+    Script.Require("jQuery").AtHead();
 }
+
+<script>
+    $(function () {
+        $("button.deleteRemoteConfig").on("click", function() {
+            return confirm("Are you sure you want to delete this remote site configuration?");
+        });
+    });
+</script>
 
 <fieldset>
     <legend>@T("Site details")</legend>
@@ -31,7 +40,7 @@
                             @Html.Hidden("id", config.Id)
                             <button type="submit" name="sync" value="sync" class="link">@T("Sync with this config")</button> <text> | </text>
                             <a href="@config.Url/contentsync/contentExport?username=@config.Username&password=@config.Password">@T("Download remote export")</a> <text> | </text>
-                            <button type="submit" name="delete" value="delete" class="link">@T("Delete")</button>
+                            <button type="submit" name="delete" value="delete" class="link deleteRemoteConfig">@T("Delete")</button>
                         }
                     </td>
                 </tr>
