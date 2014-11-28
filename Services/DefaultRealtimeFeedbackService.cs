@@ -1,6 +1,7 @@
 ﻿using CJP.ContentSync.Models;
 using Orchard.Localization;
 using Orchard.Logging;
+using Orchard.UI.Notify;
 
 namespace CJP.ContentSync.Services {
     public class DefaultRealtimeFeedbackService : IRealtimeFeedbackService {
@@ -10,7 +11,8 @@ namespace CJP.ContentSync.Services {
             Logger = NullLogger.Instance;
         }
 
-        public void SendMessage(FeedbackLevel level, LocalizedString message) {
+        public void SendMessage(FeedbackLevel level, LocalizedString message)
+        {
             switch (level)
             {
                 case FeedbackLevel.Info:
