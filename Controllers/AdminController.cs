@@ -10,6 +10,7 @@ using Orchard.Logging;
 using Orchard.Mvc;
 using Orchard.Recipes.Models;
 using Orchard.Recipes.Services;
+using Orchard.Services;
 using Orchard.UI.Notify;
 
 namespace CJP.ContentSync.Controllers
@@ -21,13 +22,15 @@ namespace CJP.ContentSync.Controllers
         private readonly IContentExportService _contentExportService;
         private readonly IRecipeJournal _recipeJournal;
         private readonly IRepository<RemoteSiteConfigRecord> _remoteConfigRepository;
+        private readonly IClock _clock;
 
-        public AdminController(IImportExportService importExportService, IOrchardServices orchardServices, IContentExportService contentExportService, IRecipeJournal recipeJournal, IRepository<RemoteSiteConfigRecord> remoteConfigRepository) {
+        public AdminController(IImportExportService importExportService, IOrchardServices orchardServices, IContentExportService contentExportService, IRecipeJournal recipeJournal, IRepository<RemoteSiteConfigRecord> remoteConfigRepository, IClock clock) {
             _importExportService = importExportService;
             _orchardServices = orchardServices;
             _contentExportService = contentExportService;
             _recipeJournal = recipeJournal;
             _remoteConfigRepository = remoteConfigRepository;
+            _clock = clock;
 
             T = NullLocalizer.Instance;
             Logger = NullLogger.Instance;
@@ -115,7 +118,10 @@ namespace CJP.ContentSync.Controllers
                 return RedirectToAction("Index");
             }
 
-            return IndexPost(new AdminImportVM {Password = config.Password, Url = config.Url, Username = config.Username});
+            var result = IndexPost(new AdminImportVM {Password = config.Password, Url = config.Url, Username = config.Username});
+            config.LastSynced = _clock.UtcNow;
+
+            return result;
         }
 
         [HttpPost]
