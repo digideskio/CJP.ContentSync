@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
@@ -50,15 +51,21 @@ namespace CJP.ContentSync.Controllers
         [FormValueRequired("syncContent")]
         public ActionResult IndexPost(AdminImportVM vm)
         {
+            if (vm == null) {
+                throw new ArgumentNullException("vm");
+            }
+
             // sets the setup request timeout to 10 minutes to give enough time to execute custom recipes.  
-            if (HttpContext == null || HttpContext.Server == null) {
+            if (_orchardServices.WorkContext.HttpContext == null)
+            {
                 Logger.Error("Content Sync could not extend the page timeout for this request because HttpContext was null");
             }
-            else if (HttpContext == null || HttpContext.Server == null) {
+            else if (_orchardServices.WorkContext.HttpContext.Server == null)
+            {
                 Logger.Error("Content Sync could not extend the page timeout for this request because HttpContext.Server was null");
             }else
             {
-                HttpContext.Server.ScriptTimeout = 600;
+                _orchardServices.WorkContext.HttpContext.Server.ScriptTimeout = 600;
             }
 
 
