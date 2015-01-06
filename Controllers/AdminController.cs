@@ -55,25 +55,7 @@ namespace CJP.ContentSync.Controllers
                 throw new ArgumentNullException("vm");
             }
 
-            // sets the setup request timeout to 10 minutes to give enough time to execute custom recipes.  
-            if (_orchardServices.WorkContext.HttpContext == null)
-            {
-                Logger.Error("Content Sync could not extend the page timeout for this request because HttpContext was null");
-            }
-            else if (_orchardServices.WorkContext.HttpContext.Server == null)
-            {
-                Logger.Error("Content Sync could not extend the page timeout for this request because HttpContext.Server was null");
-            }else
-            {
-                try {
-                    _orchardServices.WorkContext.HttpContext.Server.ScriptTimeout = 600;
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "Content Sync could not extend the page timeout for this request because HttpContext.Server.ScriptTimeout threw an exception when being set");
-                }
-            }
-
+            _orchardServices.WorkContext.HttpContext.Server.ScriptTimeout = 600;
 
             var result = _contentExportService.GetContentExportFromUrl(vm.Url, vm.Username, vm.Password);
 

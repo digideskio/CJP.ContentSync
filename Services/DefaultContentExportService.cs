@@ -78,9 +78,18 @@ namespace CJP.ContentSync.Services {
             {
                 importText = (new WebClient()).DownloadString(url);
             }
-            catch (WebException ex)
+            catch (WebException ex) 
             {
-                var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                var httpWebResponse = ((HttpWebResponse) ex.Response);
+
+                if (httpWebResponse == null)
+                {
+                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}. The error response did not contain an HTTP status code; this implies that there was a connectivity issue between this site and the remote one.", url);
+
+                    return new ApiResult { Status = ApiResultStatus.Failed };
+                }
+
+                var statusCode = httpWebResponse.StatusCode;
 
                 if (statusCode == HttpStatusCode.Unauthorized)
                 {
