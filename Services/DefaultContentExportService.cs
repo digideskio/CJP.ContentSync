@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -51,8 +52,16 @@ namespace CJP.ContentSync.Services {
             }
             catch (WebException ex)
             {
+                var httpWebResponse = ((HttpWebResponse)ex.Response);
 
-                var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                if (httpWebResponse == null)
+                {
+                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}. The error response did not contain an HTTP status code; this implies that there was a connectivity issue, or the request timed out", url);
+
+                    return new ApiResult { Status = ApiResultStatus.Failed };
+                }
+
+                var statusCode = httpWebResponse.StatusCode;
 
                 if (statusCode == HttpStatusCode.Unauthorized) {
                     return new ApiResult {Status = ApiResultStatus.Unauthorized};
@@ -74,9 +83,10 @@ namespace CJP.ContentSync.Services {
             url = string.Format("{0}/contentsync/contentExport?username={1}&password={2}", url, username, password);
             var importText = string.Empty;
 
-            try
-            {
-                importText = (new WebClient()).DownloadString(url);
+            try {
+                var client = new ExtendedTimeoutWebClient();
+
+                importText = client.DownloadString(url);
             }
             catch (WebException ex) 
             {
@@ -84,7 +94,7 @@ namespace CJP.ContentSync.Services {
 
                 if (httpWebResponse == null)
                 {
-                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}. The error response did not contain an HTTP status code; this implies that there was a connectivity issue between this site and the remote one.", url);
+                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}. The error response did not contain an HTTP status code; this implies that there was a connectivity issue, or the request timed out", url);
 
                     return new ApiResult { Status = ApiResultStatus.Failed };
                 }
@@ -105,6 +115,17 @@ namespace CJP.ContentSync.Services {
             }
 
             return new ApiResult { Status = ApiResultStatus.OK, Text = importText };
+        }
+    }
+
+    class ExtendedTimeoutWebClient : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri uri)
+        {
+            WebRequest w = base.GetWebRequest(uri);
+            w.Timeout = 3 * 60 * 1000; //3 minutes
+
+            return w;
         }
     }
 }
