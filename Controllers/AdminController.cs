@@ -65,7 +65,13 @@ namespace CJP.ContentSync.Controllers
                 Logger.Error("Content Sync could not extend the page timeout for this request because HttpContext.Server was null");
             }else
             {
-                _orchardServices.WorkContext.HttpContext.Server.ScriptTimeout = 600;
+                try {
+                    _orchardServices.WorkContext.HttpContext.Server.ScriptTimeout = 600;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "Content Sync could not extend the page timeout for this request because HttpContext.Server.ScriptTimeout threw an exception when being set");
+                }
             }
 
 
