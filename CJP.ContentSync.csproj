@@ -118,6 +118,7 @@
     <Compile Include="Models\SnapshotRecord.cs" />
     <Compile Include="ExtensionMethods\ContentTypeExtensions.cs" />
     <Compile Include="RecipeHandlers\FeatureRedactionsRecipeHandler.cs" />
+    <Compile Include="RecipeHandlers\RemoteSiteConfigRecipeHandler.cs" />
     <Compile Include="RecipeHandlers\SettingRedactionsRecipeHandler.cs" />
     <Compile Include="RecipeHandlers\ContentRedactionsRecipeHandler.cs" />
     <Compile Include="RecipeHandlers\RedactedSettingsRecipeHandler.cs" />
