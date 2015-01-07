@@ -14,10 +14,10 @@ namespace CJP.ContentSync.RecipeHandlers {
     //This handler is similar to the standard settings import handler taken from Orchard.Recipe. Main difference is the added ability to restore redacted text
     public class RedactedSettingsRecipeHandler : IRecipeHandler {
         private readonly ISiteService _siteService;
-        private readonly ITextRedactionService _textRedactionService;
+        private readonly IContentRedactionService _textRedactionService;
         private readonly IRealtimeFeedbackService _realtimeFeedbackService;
 
-        public RedactedSettingsRecipeHandler(ISiteService siteService, ITextRedactionService textRedactionService, IRealtimeFeedbackService realtimeFeedbackService)
+        public RedactedSettingsRecipeHandler(ISiteService siteService, IContentRedactionService textRedactionService, IRealtimeFeedbackService realtimeFeedbackService)
         {
             _siteService = siteService;
             _textRedactionService = textRedactionService;

@@ -4,6 +4,6 @@ namespace CJP.ContentSync.Models {
         Created,
         Updated,
         Removed,
-        PlaceholderNotUnique
+        NotUnique
     }
 }

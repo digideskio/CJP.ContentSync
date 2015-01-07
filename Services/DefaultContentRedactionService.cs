@@ -5,10 +5,10 @@ using CJP.ContentSync.Models;
 using Orchard.Data;
 
 namespace CJP.ContentSync.Services {
-    public class DefaultTextRedactionService : ITextRedactionService {
+    public class DefaultContentRedactionService : IContentRedactionService {
         private readonly IRepository<RedactionRecord> _repository;
 
-        public DefaultTextRedactionService(IRepository<RedactionRecord> repository) {
+        public DefaultContentRedactionService(IRepository<RedactionRecord> repository) {
             _repository = repository;
         }
 
@@ -39,7 +39,7 @@ namespace CJP.ContentSync.Services {
         {
             if (!PlaceholderIsValid(redaction)) 
             {
-                return RedactionOperationStatus.PlaceholderNotUnique;
+                return RedactionOperationStatus.NotUnique;
             }
 
             _repository.Create(redaction);
@@ -51,7 +51,7 @@ namespace CJP.ContentSync.Services {
         {
             if (!PlaceholderIsValid(redaction))
             {
-                return RedactionOperationStatus.PlaceholderNotUnique;
+                return RedactionOperationStatus.NotUnique;
             }
 
             _repository.Update(redaction);

@@ -2,8 +2,9 @@
 using CJP.ContentSync.Models;
 using Orchard;
 
-namespace CJP.ContentSync.Services {
-    public interface ITextRedactionService : IDependency
+namespace CJP.ContentSync.Services
+{
+    public interface IContentRedactionService : IDependency
     {
         string RedactText(string text);
         string RestoreText(string text);

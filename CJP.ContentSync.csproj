@@ -107,19 +107,28 @@
     <Compile Include="Drivers\ContentSyncSettingsPartDriver.cs" />
     <Compile Include="ExportSteps\RedactedSiteSettingsExportStep.cs" />
     <Compile Include="Handlers\ContentSyncSettingsPartHandler.cs" />
+    <Compile Include="Models\RedactionsIndexVM.cs" />
+    <Compile Include="Models\FeatureRedactionRecord.cs" />
     <Compile Include="Models\SelectableItem.cs" />
     <Compile Include="Models\ContentSyncSettingsPart.cs" />
     <Compile Include="Models\ContentSyncSettingsRecord.cs" />
     <Compile Include="Models\RedactionOperationStatus.cs" />
     <Compile Include="Models\RemoteSiteConfigRecord.cs" />
+    <Compile Include="Models\SettingRedactionRecord.cs" />
     <Compile Include="Models\SnapshotRecord.cs" />
     <Compile Include="ExtensionMethods\ContentTypeExtensions.cs" />
-    <Compile Include="RecipeHandlers\RedactionsRecipeHandler.cs" />
+    <Compile Include="RecipeHandlers\FeatureRedactionsRecipeHandler.cs" />
+    <Compile Include="RecipeHandlers\SettingRedactionsRecipeHandler.cs" />
+    <Compile Include="RecipeHandlers\ContentRedactionsRecipeHandler.cs" />
     <Compile Include="RecipeHandlers\RedactedSettingsRecipeHandler.cs" />
+    <Compile Include="Services\DefaultFeatureRedactionService.cs" />
     <Compile Include="Services\DefaultRealtimeFeedbackService.cs" />
-    <Compile Include="Services\DefaultTextRedactionService.cs" />
+    <Compile Include="Services\DefaultContentRedactionService.cs" />
     <Compile Include="Models\FeedbackLevel.cs" />
+    <Compile Include="Services\DefaultSettingRedactionService.cs" />
+    <Compile Include="Services\IFeatureRedactionService.cs" />
     <Compile Include="Services\IRealtimeFeedbackService.cs" />
+    <Compile Include="Services\ISettingRedactionService.cs" />
     <Compile Include="Services\ITextRedactionService.cs" />
     <Compile Include="Models\RedactionRecord.cs" />
     <Compile Include="ExportSteps\CurrentThemeExportStep.cs" />
@@ -167,13 +176,19 @@
     <Content Include="Views\Redactions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Redactions\Edit.cshtml" />
+    <Content Include="Views\Redactions\EditContentRedaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\ContentSyncSettingsPart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Redactions\EditSettingRedaction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Redactions\EditFeatureRedaction.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
