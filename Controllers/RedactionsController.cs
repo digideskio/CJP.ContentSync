@@ -53,18 +53,8 @@ namespace CJP.ContentSync.Controllers
         [HttpPost, ActionName("EditContentRedaction"), FormValueRequired("save")]
         public ActionResult EditContentRedactionPost(RedactionRecord redaction, int id = 0)
         {
-            RedactionOperationStatus status;
-
-            if (id == 0)
-            {
-                redaction.Id = id;
-                status = _textRedactionService.UpdateRedaction(redaction);
-            }
-            else
-            {
-                redaction.Id = id;
-                status = _textRedactionService.UpdateRedaction(redaction);
-            }
+            redaction.Id = id;
+            var status = _textRedactionService.UpdateRedaction(redaction);
 
             switch (status)
             {
@@ -100,21 +90,11 @@ namespace CJP.ContentSync.Controllers
             return View(redaction);
         }
 
-        [HttpPost, ActionName("EditSettingRedaction")]
+        [HttpPost, ActionName("EditSettingRedaction"), FormValueRequired("save")]
         public ActionResult EditSettingRedactionPost(SettingRedactionRecord redaction, int id = 0)
         {
-            RedactionOperationStatus status;
-
-            if (id == 0)
-            {
-                redaction.Id = id;
-                status = _settingRedactionService.UpdateRedaction(redaction);
-            }
-            else
-            {
-                redaction.Id = id;
-                status = _settingRedactionService.UpdateRedaction(redaction);
-            }
+            redaction.Id = id;
+            var status = _settingRedactionService.UpdateRedaction(redaction);
 
             switch (status)
             {
@@ -150,21 +130,11 @@ namespace CJP.ContentSync.Controllers
             return View(redaction);
         }
 
-        [HttpPost, ActionName("EditFeatureRedaction")]
+        [HttpPost, ActionName("EditFeatureRedaction"), FormValueRequired("save")]
         public ActionResult EditFeatureRedactionPost(FeatureRedactionRecord redaction, int id = 0)
         {
-            RedactionOperationStatus status;
-
-            if (id == 0)
-            {
-                redaction.Id = id;
-                status = _featureRedactionService.UpdateRedaction(redaction);
-            }
-            else
-            {
-                redaction.Id = id;
-                status = _featureRedactionService.UpdateRedaction(redaction);
-            }
+            redaction.Id = id;
+            var status = _featureRedactionService.UpdateRedaction(redaction);
 
             switch (status)
             {
@@ -178,6 +148,17 @@ namespace CJP.ContentSync.Controllers
                     _notifier.Error(T("Feature Redaction could not be saved because there is already a feature redaction for the feature {0}.", redaction.FeatureId));
                     return View(redaction);
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("EditFeatureRedaction"), FormValueRequired("delete")]
+        public ActionResult EditFeatureRedactionDelete(FeatureRedactionRecord redaction, int id = 0)
+        {
+            redaction.Id = id;
+            _featureRedactionService.DeleteRedaction(redaction);
+
+            _notifier.Information(T("Feature Redaction deleted"));
 
             return RedirectToAction("Index");
         }

@@ -13,27 +13,28 @@
     </div>
     <br />
     <br />
-    <table class="items">
-        <tr>
-            <th>@T("Regex to match")</th>
-            <th>@T("Placeholder")</th>
-            <th>@T("Replace with")</th>
-            <th></th>
-        </tr>
-        @foreach (var redaction in Model.ContentRedactions)
-        {
+    @if (Model.ContentRedactions.Any()) {
+        <table class="items">
             <tr>
-                <td>@redaction.Regex</td>
-                <td>@redaction.Placeholder</td>
-                <td>@redaction.ReplaceWith</td>
-                <td>@Html.ActionLink(T("Edit").Text, "EditContentRedaction", "Redactions", new { redaction.Id }, null)</td>
+                <th width="35%">@T("Regex to match")</th>
+                <th width="20%">@T("Placeholder")</th>
+                <th width="35%">@T("Replace with")</th>
+                <th width="10%"></th>
             </tr>
-        }
-    </table>
+            @foreach (var redaction in Model.ContentRedactions) {
+                <tr>
+                    <td>@redaction.Regex</td>
+                    <td>@redaction.Placeholder</td>
+                    <td>@redaction.ReplaceWith</td>
+                    <td>@Html.ActionLink(T("Edit").Text, "EditContentRedaction", "Redactions", new {redaction.Id}, null)</td>
+                </tr>
+            }
+        </table>
 
-    <span class="hint">
-        @T("Note- the redactions are performed in the order specified above. If a piece of text matches multiple regexes, the placeholders will be applied in the order above.")
-    </span>
+        <span class="hint">
+            @T("Note- the redactions are performed in the order specified above. If a piece of text matches multiple regexes, the placeholders will be applied in the order above.")
+        </span>
+    }
 </fieldset>
 
 
@@ -45,21 +46,22 @@
     </div>
     <br />
     <br />
-    <table class="items">
-        <tr>
-            <th>@T("Feature")</th>
-            <th>@T("State")</th>
-            <th></th>
-        </tr>
-        @foreach (var redaction in Model.FeatureRedactions)
-        {
+    @if (Model.FeatureRedactions.Any()) {
+        <table class="items">
             <tr>
-                <td>@redaction.FeatureId</td>
-                <td>@(redaction.Enabled?"Enabled":"Disabled")</td>
-                <td>@Html.ActionLink(T("Edit").Text, "EditFeatureRedaction", "Redactions", new { redaction.Id }, null)</td>
+                <th width="45%">@T("Feature")</th>
+                <th width="45%">@T("State")</th>
+                <th width="10%"></th>
             </tr>
-        }
-    </table>
+            @foreach (var redaction in Model.FeatureRedactions) {
+                <tr>
+                    <td>@redaction.FeatureId</td>
+                    <td>@(redaction.Enabled ? "Enabled" : "Disabled")</td>
+                    <td>@Html.ActionLink(T("Edit").Text, "EditFeatureRedaction", "Redactions", new {redaction.Id}, null)</td>
+                </tr>
+            }
+        </table>
+    }
 </fieldset>
 
 
@@ -71,20 +73,21 @@
     </div>
     <br />
     <br />
-    <table class="items">
-        <tr>
-            <th>@T("Setting")</th>
-            <th>@T("Value")</th>
-            <th></th>
-        </tr>
-        @foreach (var redaction in Model.SettingRedactions)
-        {
+    @if (Model.SettingRedactions.Any()) {
+        <table class="items">
             <tr>
-                <td>@redaction.SettingName</td>
-                <td>@redaction.Value</td>
-                <td>@Html.ActionLink(T("Edit").Text, "EditSettingRedaction", "Redactions", new { redaction.Id }, null)</td>
+                <th width="45%">@T("Setting")</th>
+                <th width="45%">@T("Value")</th>
+                <th width="10%"></th>
             </tr>
-        }
-    </table>
+            @foreach (var redaction in Model.SettingRedactions) {
+                <tr>
+                    <td>@redaction.SettingName</td>
+                    <td>@redaction.Value</td>
+                    <td>@Html.ActionLink(T("Edit").Text, "EditSettingRedaction", "Redactions", new {redaction.Id}, null)</td>
+                </tr>
+            }
+        </table>
+    }
 </fieldset>
 
