@@ -4,6 +4,7 @@ using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
 using Orchard.Localization;
 using Orchard.Logging;
+using Orchard.Mvc;
 using Orchard.UI.Admin;
 using Orchard.UI.Notify;
 
@@ -49,7 +50,7 @@ namespace CJP.ContentSync.Controllers
             return View(redaction);
         }
 
-        [HttpPost, ActionName("EditContentRedaction")]
+        [HttpPost, ActionName("EditContentRedaction"), FormValueRequired("save")]
         public ActionResult EditContentRedactionPost(RedactionRecord redaction, int id = 0)
         {
             RedactionOperationStatus status;
@@ -77,6 +78,17 @@ namespace CJP.ContentSync.Controllers
                     _notifier.Error(T("Redaction could not be saved because the Placeholder was not unique. Ensure that the placeholder you choose does not already exist for another redaction."));
                     return View(redaction);
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("EditContentRedaction"), FormValueRequired("delete")]
+        public ActionResult EditSettingRedactionDelete(RedactionRecord redaction, int id = 0)
+        {
+            redaction.Id = id;
+            _textRedactionService.DeleteRedaction(redaction);
+
+            _notifier.Information(T("Content Redaction deleted"));
 
             return RedirectToAction("Index");
         }
@@ -116,6 +128,17 @@ namespace CJP.ContentSync.Controllers
                     _notifier.Error(T("Setting Redaction could not be saved because there is already a Setting Redaction for the setting {0}.", redaction.SettingName));
                     return View(redaction);
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("EditSettingRedaction"), FormValueRequired("delete")]
+        public ActionResult EditSettingRedactionDelete(SettingRedactionRecord redaction, int id = 0)
+        {
+            redaction.Id = id;
+            _settingRedactionService.DeleteRedaction(redaction);
+
+            _notifier.Information(T("Setting Redaction deleted"));
 
             return RedirectToAction("Index");
         }
