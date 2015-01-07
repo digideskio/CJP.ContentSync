@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
 using Orchard.Localization;
@@ -83,6 +82,7 @@ namespace CJP.ContentSync.Controllers
             return RedirectToAction("Index");
         }
 
+
         public ActionResult EditSettingRedaction(int id = 0)
         {
             var redaction = _settingRedactionService.GetRedaction(id) ?? new SettingRedactionRecord();
@@ -122,6 +122,7 @@ namespace CJP.ContentSync.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         public ActionResult EditFeatureRedaction(int id = 0)
         {
