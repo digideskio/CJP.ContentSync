@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Commands\ContentMigrationCommands.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\SnapshotsController.cs" />
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
     <Compile Include="Drivers\ContentSyncSettingsPartDriver.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Models\SelectableItem.cs" />
     <Compile Include="Models\ContentSyncSettingsPart.cs" />
     <Compile Include="Models\ContentSyncSettingsRecord.cs" />
-    <Compile Include="Models\RedactionOperationStatus.cs" />
+    <Compile Include="Models\Enums\RedactionOperationStatus.cs" />
     <Compile Include="Models\RemoteSiteConfigRecord.cs" />
     <Compile Include="Models\SettingRedactionRecord.cs" />
     <Compile Include="Models\SnapshotRecord.cs" />
@@ -134,6 +135,8 @@
     <Compile Include="RecipeHandlers\RedactedSettingsRecipeHandler.cs" />
     <Compile Include="Models\ContentSyncResult.cs" />
     <Compile Include="Models\Enums\ContentSyncResultStatus.cs" />
+    <Compile Include="Services\DefaultSnapshotService.cs" />
+    <Compile Include="Services\ISnapshotService.cs" />
     <Compile Include="Services\DefaultContentSyncService.cs" />
     <Compile Include="Services\DefaultFeatureRedactionService.cs" />
     <Compile Include="Services\DefaultRealtimeFeedbackService.cs" />
@@ -204,6 +207,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Redactions\EditFeatureRedaction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Snapshots\View.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Snapshots\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

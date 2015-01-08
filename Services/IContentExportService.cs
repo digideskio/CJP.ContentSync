@@ -2,7 +2,9 @@
 
 namespace CJP.ContentSync.Services
 {
-    public interface IContentExportService : IDependency {
+    public interface IContentExportService : IDependency
+    {
+        string GetContentExportFilePath();
         string GetContentExportText();
     }
 }

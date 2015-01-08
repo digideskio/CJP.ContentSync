@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
 using CJP.ContentSync.Models;
 using Orchard;
 using Orchard.ContentManagement;
@@ -27,7 +26,7 @@ namespace CJP.ContentSync.Services {
         }
         public ILogger Logger { get; set; }
 
-        public string GetContentExportText() {
+        public string GetContentExportFilePath() {
             var settings = _orchardServices.WorkContext.CurrentSite.As<ContentSyncSettingsPart>();
 
             var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).Except(settings.ExcludedContentTypes).ToList();
@@ -38,16 +37,11 @@ namespace CJP.ContentSync.Services {
 
             return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
         }
-    }
 
-    class ExtendedTimeoutWebClient : WebClient
-    {
-        protected override WebRequest GetWebRequest(Uri uri)
-        {
-            WebRequest w = base.GetWebRequest(uri);
-            w.Timeout = 3 * 60 * 1000; //3 minutes
+        public string GetContentExportText() {
+            var filePath = GetContentExportFilePath();
 
-            return w;
+            return File.ReadAllText(filePath);
         }
     }
 }

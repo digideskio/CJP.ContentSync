@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using CJP.ContentSync.Models;
+using CJP.ContentSync.Models.Enums;
 using Orchard.Data;
 
 namespace CJP.ContentSync.Services {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CJP.ContentSync.Models;
+using CJP.ContentSync.Models.Enums;
 using Orchard.Data;
 
 namespace CJP.ContentSync.Services {
