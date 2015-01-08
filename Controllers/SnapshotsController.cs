@@ -50,7 +50,7 @@ namespace CJP.ContentSync.Controllers
             if (record == null) {
                 record = new SnapshotRecord {
                     TimeTaken = _clock.UtcNow,
-                    Data = _contentExportService.GetContentExportFilePath()
+                    Data = _contentExportService.GetContentExportText()
                 };
             }
 

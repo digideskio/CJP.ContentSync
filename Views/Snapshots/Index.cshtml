@@ -10,10 +10,11 @@
     <fieldset>
         <legend>@T("Snapshots")</legend>
         @T("Snapshots are a record of how your site looked at a certain point in time.")
-        <div class="manage">
+        <div class="actions">
             @using (Html.BeginFormAntiForgeryPost(Url.Action("Take", "Snapshots", new { area = "CJP.ContentSync" }), FormMethod.Post))
             {
-                <button type="submit">@T("Take a Snapshot")</button>
+                @Html.ActionLink(T("Generate a Snapshot").Text, "View", "Snapshots", null, new { @class = "button grey" })
+                <button type="submit">@T("Save a Snapshot")</button>
             }
         </div>
         <br />
