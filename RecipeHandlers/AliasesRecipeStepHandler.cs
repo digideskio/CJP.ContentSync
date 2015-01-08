@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Routing;
+using System.Xml.XPath;
 using Orchard.Alias;
 using Orchard.Localization;
 using Orchard.Recipes.Models;
@@ -53,6 +54,16 @@ namespace CJP.ContentSync.RecipeHandlers
 
                 _aliasService.Set(path, rvd, "Custom");
             }
+
+            //remove all local pathys that are not present in the remote export
+            var allRemotePaths = recipeContext.RecipeStep.Step.XPathSelectElements("Paths/Add").Select(e => e.Attribute("Path").Value);
+            var allLocalPaths = _aliasService.List().Select(t=> t.Item1).ToList();
+
+            foreach (var path in allLocalPaths.Where(p=>!allRemotePaths.Contains(p)))
+            {
+                _aliasService.Delete(path);
+            }
+
 
             recipeContext.Executed = true;
         }
