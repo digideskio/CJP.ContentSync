@@ -78,6 +78,14 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Alias\Orchard.Alias.csproj">
+      <Project>{475B6C45-B27C-438B-8966-908B9D6D1077}</Project>
+      <Name>Orchard.Alias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Autoroute\Orchard.Autoroute.csproj">
+      <Project>{66FCCD76-2761-47E3-8D11-B45D0001DDAA}</Project>
+      <Name>Orchard.Autoroute</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.ImportExport\Orchard.ImportExport.csproj">
       <Project>{FE5C5947-D2D5-42C5-992A-13D672946135}</Project>
       <Name>Orchard.ImportExport</Name>
@@ -105,6 +113,7 @@
     <Compile Include="Controllers\RedactionsController.cs" />
     <Compile Include="Drivers\RedactedBodyPartDriver.cs" />
     <Compile Include="Drivers\ContentSyncSettingsPartDriver.cs" />
+    <Compile Include="ExportSteps\AliasesExportStep.cs" />
     <Compile Include="ExportSteps\RedactedSiteSettingsExportStep.cs" />
     <Compile Include="Handlers\ContentSyncSettingsPartHandler.cs" />
     <Compile Include="Models\RedactionsIndexVM.cs" />
@@ -137,7 +146,7 @@
     <Compile Include="Controllers\API\ContentExportController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ExportSteps\ContentTrimExportStep.cs" />
-    <Compile Include="ExportSteps\EnabledFeaturesExportStep.cs" />
+    <Compile Include="ExportSteps\FeatureSyncExportStep.cs" />
     <Compile Include="ExportSteps\ExecutedDataMigrationsExportStep.cs" />
     <Compile Include="Migrations\DataMigrations.cs" />
     <Compile Include="Models\ApiResult.cs" />
@@ -154,7 +163,9 @@
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
     <Compile Include="RecipeHandlers\CurrentThemeRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
-    <Compile Include="Services\DefaultContentExportService.cs" />
+    <Compile Include="Services\DefaultContentExportService.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\IContentExportService.cs" />
     <Compile Include="Services\DefaultContentMigrationManager.cs" />
     <Compile Include="Services\DefaultContentMigrationStateService.cs" />
