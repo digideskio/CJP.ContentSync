@@ -38,45 +38,6 @@ namespace CJP.ContentSync.Services {
 
             return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
         }
-
-        public ApiResult GetContentExportFromUrl(string url, string username, string password)
-        {
-            url = string.Format("{0}/contentsync/contentExport?username={1}&password={2}", url, username, password);
-            var importText = string.Empty;
-
-            try {
-                var client = new ExtendedTimeoutWebClient();
-
-                importText = client.DownloadString(url);
-            }
-            catch (WebException ex) 
-            {
-                var httpWebResponse = ((HttpWebResponse) ex.Response);
-
-                if (httpWebResponse == null)
-                {
-                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}. The error response did not contain an HTTP status code; this implies that there was a connectivity issue, or the request timed out", url);
-
-                    return new ApiResult { Status = ApiResultStatus.Failed };
-                }
-
-                var statusCode = httpWebResponse.StatusCode;
-
-                if (statusCode == HttpStatusCode.Unauthorized)
-                {
-                    return new ApiResult { Status = ApiResultStatus.Unauthorized };
-                }
-
-                if (statusCode != HttpStatusCode.OK)
-                {
-                    Logger.Log(LogLevel.Error, ex, "There was an error exporting the remote site at {0}", url);
-
-                    return new ApiResult { Status = ApiResultStatus.Failed };
-                }
-            }
-
-            return new ApiResult { Status = ApiResultStatus.OK, Text = importText };
-        }
     }
 
     class ExtendedTimeoutWebClient : WebClient

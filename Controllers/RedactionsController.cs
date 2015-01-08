@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using CJP.ContentSync.Models;
+using CJP.ContentSync.Models.ViewModels;
 using CJP.ContentSync.Services;
 using Orchard.Localization;
 using Orchard.Logging;

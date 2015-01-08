@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CJP.ContentSync.Models
+namespace CJP.ContentSync.Models.ViewModels
 {
     public class RedactionsIndexVM
     {

@@ -3,23 +3,17 @@ using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
 using Orchard.Commands;
 using Orchard.Data;
-using Orchard.ImportExport.Services;
-using Orchard.Recipes.Services;
 
 namespace CJP.ContentSync.Commands {
     public class ContentMigrationCommands : DefaultOrchardCommandHandler {
         private readonly IContentMigrationManager _contentMigrationManager;
-        private readonly IContentExportService _contentExportService;
-        private readonly IImportExportService _importExportService;
-        private readonly IRecipeJournal _recipeJournal;
+        private readonly IContentSyncService _contentSyncService;
         private readonly IRepository<RemoteSiteConfigRecord> _repository;
 
-        public ContentMigrationCommands(IContentMigrationManager contentMigrationManager, IContentExportService contentExportService, IImportExportService importExportService, IRecipeJournal recipeJournal, IRepository<RemoteSiteConfigRecord> repository)
+        public ContentMigrationCommands(IContentMigrationManager contentMigrationManager, IContentSyncService contentSyncService, IRepository<RemoteSiteConfigRecord> repository)
         {
             _contentMigrationManager = contentMigrationManager;
-            _contentExportService = contentExportService;
-            _importExportService = importExportService;
-            _recipeJournal = recipeJournal;
+            _contentSyncService = contentSyncService;
             _repository = repository;
         }
 
@@ -62,27 +56,10 @@ namespace CJP.ContentSync.Commands {
         [CommandName("CJP contentsync from remote")]
         [CommandHelp("CJP contentsync from remote\r\n\t" + "Gets an export from the remote site and syncs this site with it")]
         [OrchardSwitches("Url,Username,Password")]
-        public void RemoteSyncWithCredentials()
-        {
-            var result = _contentExportService.GetContentExportFromUrl(Url, Username, Password);
+        public void RemoteSyncWithCredentials(){
 
-
-            if (result.Status == ApiResultStatus.Unauthorized)
-            {
-                Context.Output.WriteLine(T("Either the username and password you supplied is incorrect, or this user does not have the correct permissions to export content"));
-                return;
-            }
-
-            if (result.Status == ApiResultStatus.Failed)
-            {
-                Context.Output.WriteLine(T("There was an unexpected error when trying to export the remote site"));
-                return;
-            }
-
-            Context.Output.WriteLine(T("Site content and configurations have been downloaded and will now be imported"));
-            var executionId = _importExportService.Import(result.Text);
-
-            _recipeJournal.GetRecipeJournal(executionId);
+            var result = _contentSyncService.Sync(Url, Username, Password);
+            Context.Output.WriteLine(T("Content Sync finished with status {0}", result.Status));
         }
 
 
@@ -94,28 +71,11 @@ namespace CJP.ContentSync.Commands {
             if (record == null)
             {
                 Context.Output.WriteLine(T("Could not sync with the remote site {0} because there is no saved remote site config with the url {0}", Url));
-
                 return;
             }
 
-            var result = _contentExportService.GetContentExportFromUrl(record.Url, record.Username, record.Password);
-
-            if (result.Status == ApiResultStatus.Unauthorized)
-            {
-                Context.Output.WriteLine(T("Either the username and password you supplied is incorrect, or this user does not have the correct permissions to export content"));
-                return;
-            }
-
-            if (result.Status == ApiResultStatus.Failed)
-            {
-                Context.Output.WriteLine(T("There was an unexpected error when trying to export the remote site"));
-                return;
-            }
-
-            Context.Output.WriteLine(T("Site content and configurations have been downloaded and will now be imported"));
-            var executionId = _importExportService.Import(result.Text);
-
-            _recipeJournal.GetRecipeJournal(executionId);
+            var result = _contentSyncService.Sync(record.Url, record.Username, record.Password);
+            Context.Output.WriteLine(T("Content Sync finished with status {0}", result.Status));
         }
     }
 }
