@@ -15,11 +15,13 @@ namespace CJP.ContentSync.ExportSteps
     public class AliasesExportStep : IExportEventHandler, ICustomExportStep
     {
         private readonly IAliasHolder _aliasHolder;
+        private readonly IAliasService _aliasService;
         private readonly IContentManager _contentManager;
 
-        public AliasesExportStep(IAliasHolder aliasHolder, IContentManager contentManager) 
+        public AliasesExportStep(IAliasHolder aliasHolder, IAliasService aliasService, IContentManager contentManager) 
         {
             _aliasHolder = aliasHolder;
+            _aliasService = aliasService;
             _contentManager = contentManager;
             Logger = NullLogger.Instance;
             T = NullLocalizer.Instance;
@@ -41,7 +43,7 @@ namespace CJP.ContentSync.ExportSteps
 
             foreach (var aliasInfo in aliasInfos) 
             {
-                var aliasElement = new XElement("Alias", new XAttribute("Path", aliasInfo.Path), new XAttribute("Area", aliasInfo.Area));
+                var aliasElement = new XElement("Alias", new XAttribute("Path", aliasInfo.Path));
 
                 var routeValuesElement = new XElement("RouteValues");
                 foreach (var routeValue in aliasInfo.RouteValues) {
