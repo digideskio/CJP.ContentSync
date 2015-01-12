@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using System.Security.Authentication;
 using System.Web.Mvc;
 using CJP.ContentSync.Models;
+using CJP.ContentSync.Permissions;
 using CJP.ContentSync.Services;
 using Orchard.Environment.Configuration;
 using Orchard.Localization;
 using Orchard.Logging;
+using Orchard.Security;
 using Orchard.Services;
 using Orchard.UI.Admin;
 using Orchard.UI.Notify;
@@ -19,14 +22,16 @@ namespace CJP.ContentSync.Controllers
         private readonly IClock _clock;
         private readonly IContentExportService _contentExportService;
         private readonly ShellSettings _shellSettings;
+        private readonly IAuthorizer _authorizer;
 
-        public SnapshotsController(ISnapshotService snapshotService, INotifier notifier, IClock clock, IContentExportService contentExportService, ShellSettings shellSettings)
+        public SnapshotsController(ISnapshotService snapshotService, INotifier notifier, IClock clock, IContentExportService contentExportService, ShellSettings shellSettings, IAuthorizer authorizer)
         {
             _snapshotService = snapshotService;
             _notifier = notifier;
             _clock = clock;
             _contentExportService = contentExportService;
             _shellSettings = shellSettings;
+            _authorizer = authorizer;
 
             T = NullLocalizer.Instance;
             Logger = NullLogger.Instance;
@@ -38,12 +43,22 @@ namespace CJP.ContentSync.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (!_authorizer.Authorize(ContentSyncPermissions.SnapshotManager, T("You need the {0} permission to do this.", ContentSyncPermissions.SnapshotManager.Name)))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             return View(_snapshotService.GetSnaphots().OrderByDescending(ss => ss.TimeTaken));
         }
 
         [HttpGet]
         public ActionResult View(int? id = null)
         {
+            if (!_authorizer.Authorize(ContentSyncPermissions.SnapshotManager, T("You need the {0} permission to do this.", ContentSyncPermissions.SnapshotManager.Name)))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             SnapshotRecord record = null;
 
             if (id.HasValue)
@@ -66,6 +81,11 @@ namespace CJP.ContentSync.Controllers
         [HttpGet]
         public ActionResult Download()
         {
+            if (!_authorizer.Authorize(ContentSyncPermissions.SnapshotDownloader, T("You need the {0} permission to do this.", ContentSyncPermissions.SnapshotDownloader.Name)))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             var filePath = _contentExportService.GetContentExportFilePath();
             var fileName = string.Format("Snapshot from {0} - taken {1:yyyy-MM-dd HH-mm-ss}.xml", _shellSettings.Name, _clock.UtcNow);
 
@@ -75,6 +95,11 @@ namespace CJP.ContentSync.Controllers
         [HttpPost]
         public ActionResult Take()
         {
+            if (!_authorizer.Authorize(ContentSyncPermissions.SnapshotManager, T("You need the {0} permission to do this.", ContentSyncPermissions.SnapshotManager.Name)))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             _snapshotService.TakeSnaphot();
             _notifier.Information(T("A snapshot of this site's current configuration has been taken and added to the collection."));
 
