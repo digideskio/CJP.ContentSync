@@ -5,16 +5,35 @@
 
     @{
         Layout.Title = T("Content Sync - Snapshots");
+        Script.Require("jQuery");
+    }
+    
+    @using (Script.Foot()) {
+        <script type="text/javascript">
+            $(function () {
+                $("a.bookmarklet").each(function () {
+                    var href = $(this).attr("href");
+
+                    var newHref = "javascript:window.location.href = '" + href + "';";
+
+                    $(this).prop("href", newHref);
+                });
+            });
+        </script>
     }
 
     <fieldset>
         <legend>@T("Snapshots")</legend>
-        @T("Snapshots are a record of how your site looked at a certain point in time.")
+        @T("Snapshots are a record of how your site looked at a given point in time.")
         <div class="actions">
             @using (Html.BeginFormAntiForgeryPost(Url.Action("Take", "Snapshots", new { area = "CJP.ContentSync" }), FormMethod.Post))
             {
-                @Html.ActionLink(T("Generate a Snapshot").Text, "View", "Snapshots", null, new { @class = "button grey" })
-                <button type="submit">@T("Save a Snapshot")</button>
+                <div>
+                    @Html.ActionLink(T("Download current Snapshot").Text, "Download", "Snapshots", null, new { @class = "button grey bookmarklet" }) <text> </text>
+                    @Html.ActionLink(T("Generate current Snapshot").Text, "View", "Snapshots", null, new { @class = "button grey" })
+                    <button type="submit">@T("Save current Snapshot")</button>
+                </div>
+                <span class="hint">@T("Drag the 'Download current Snapshot' button above to your bookmark bar for easy access")</span>
             }
         </div>
         <br />

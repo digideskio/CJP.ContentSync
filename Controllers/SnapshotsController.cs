@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
+using Orchard.Environment.Configuration;
 using Orchard.Localization;
 using Orchard.Logging;
 using Orchard.Services;
@@ -17,13 +18,15 @@ namespace CJP.ContentSync.Controllers
         private readonly INotifier _notifier;
         private readonly IClock _clock;
         private readonly IContentExportService _contentExportService;
+        private readonly ShellSettings _shellSettings;
 
-        public SnapshotsController(ISnapshotService snapshotService, INotifier notifier, IClock clock, IContentExportService contentExportService)
+        public SnapshotsController(ISnapshotService snapshotService, INotifier notifier, IClock clock, IContentExportService contentExportService, ShellSettings shellSettings)
         {
             _snapshotService = snapshotService;
             _notifier = notifier;
             _clock = clock;
             _contentExportService = contentExportService;
+            _shellSettings = shellSettings;
 
             T = NullLocalizer.Instance;
             Logger = NullLogger.Instance;
@@ -39,22 +42,34 @@ namespace CJP.ContentSync.Controllers
         }
 
         [HttpGet]
-        public ActionResult View(int? id = null) 
+        public ActionResult View(int? id = null)
         {
             SnapshotRecord record = null;
 
-            if (id.HasValue) {
+            if (id.HasValue)
+            {
                 record = _snapshotService.GetSnaphot(id.Value);
             }
 
-            if (record == null) {
-                record = new SnapshotRecord {
+            if (record == null)
+            {
+                record = new SnapshotRecord
+                {
                     TimeTaken = _clock.UtcNow,
                     Data = _contentExportService.GetContentExportText()
                 };
             }
 
             return View(record);
+        }
+
+        [HttpGet]
+        public ActionResult Download()
+        {
+            var filePath = _contentExportService.GetContentExportFilePath();
+            var fileName = string.Format("Snapshot from {0} - taken {1:yyyy-MM-dd HH-mm-ss}.xml", _shellSettings.Name, _clock.UtcNow);
+
+            return File(filePath, "text/xml", fileName);
         }
 
         [HttpPost]
