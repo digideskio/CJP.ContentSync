@@ -135,6 +135,8 @@
     <Compile Include="RecipeHandlers\RedactedSettingsRecipeHandler.cs" />
     <Compile Include="Models\ContentSyncResult.cs" />
     <Compile Include="Models\Enums\ContentSyncResultStatus.cs" />
+    <Compile Include="RetentionPolicies\PreviousWeekSnapshotRetentionPolicy.cs" />
+    <Compile Include="RetentionPolicies\PreviousYearSnapshotRetentionPolicy.cs" />
     <Compile Include="Services\DefaultSnapshotService.cs" />
     <Compile Include="Services\ISnapshotService.cs" />
     <Compile Include="Services\DefaultContentSyncService.cs" />
@@ -169,9 +171,7 @@
     <Compile Include="EventHandlers\ContentMigrationTriggerOnShellStart.cs" />
     <Compile Include="RecipeHandlers\CurrentThemeRecipeStepHandler.cs" />
     <Compile Include="RecipeHandlers\RunContentMigrationsRecipeStepHandler.cs" />
-    <Compile Include="Services\DefaultContentExportService.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Services\DefaultContentExportService.cs" />
     <Compile Include="Services\IContentExportService.cs" />
     <Compile Include="Services\DefaultContentMigrationManager.cs" />
     <Compile Include="Services\DefaultContentMigrationStateService.cs" />
@@ -181,8 +181,11 @@
     <Compile Include="Services\IContentMigrationStateService.cs" />
     <Compile Include="Models\MigrationExectutionSummary.cs" />
     <Compile Include="ExtensionMethods\RealtimeFeedbackServiceExtensions.cs" />
-    <Compile Include="Tasks\SnapshotTask.cs" />
-    <Compile Include="Tasks\SnapshotTasnkManager.cs" />
+    <Compile Include="RetentionPolicies\PreviousDaySnapshotRetentionPolicy.cs" />
+    <Compile Include="RetentionPolicies\ISnapshotRetentionPolicy.cs" />
+    <Compile Include="Tasks\CleanupSnapshotsTaskHandler.cs" />
+    <Compile Include="Tasks\TakeSnapshotTaskHandler.cs" />
+    <Compile Include="EventHandlers\StartupEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ContentMigrations\CJP.ContentSync\" />

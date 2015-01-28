@@ -7,5 +7,6 @@ namespace CJP.ContentSync.Models
         public virtual string ExcludedExportSteps { get; set; }
         public virtual string ExcludedSiteSettings { get; set; }
         public virtual string ExcludedContentTypes { get; set; }
+        public virtual int SnapshotFrequencyMinutes { get; set; }
     }
 }

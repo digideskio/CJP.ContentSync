@@ -79,5 +79,12 @@ namespace CJP.ContentSync.Migrations
 
             return 7;
         }
+
+        public int UpdateFrom7() 
+        {
+            SchemaBuilder.AlterTable(typeof(ContentSyncSettingsRecord).Name, table => table.AddColumn<int>("SnapshotFrequencyMinutes"));
+
+            return 8;
+        }
     }
 }

@@ -26,5 +26,11 @@ namespace CJP.ContentSync.Models
         public IList<SelectableItem<string>> AllContentTypes { get; set; }
         public IList<SelectableItem<string>> AllExportSteps { get; set; }
         public IList<SelectableItem<string>> AllSiteSettings { get; set; }
+
+        public int SnapshotFrequencyMinutes
+        {
+            get { return Record.SnapshotFrequencyMinutes; }
+            set { Record.SnapshotFrequencyMinutes = value; }
+        }
     }
 }

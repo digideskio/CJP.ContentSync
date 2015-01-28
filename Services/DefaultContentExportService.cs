@@ -8,8 +8,10 @@ using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
 using Orchard.Logging;
 
-namespace CJP.ContentSync.Services {
-    public class DefaultContentExportService : IContentExportService {
+namespace CJP.ContentSync.Services 
+{
+    public class DefaultContentExportService : IContentExportService 
+    {
         private readonly IImportExportService _importExportService;
         private readonly IContentManager _contentManager;
         private readonly ICustomExportStep _customExportStep;
@@ -26,7 +28,8 @@ namespace CJP.ContentSync.Services {
         }
         public ILogger Logger { get; set; }
 
-        public string GetContentExportFilePath() {
+        public string GetContentExportFilePath() 
+        {
             var settings = _orchardServices.WorkContext.CurrentSite.As<ContentSyncSettingsPart>();
 
             var contentTypes = _contentManager.GetContentTypeDefinitions().Select(ctd => ctd.Name).Except(settings.ExcludedContentTypes).ToList();
@@ -38,7 +41,8 @@ namespace CJP.ContentSync.Services {
             return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
         }
 
-        public string GetContentExportText() {
+        public string GetContentExportText() 
+        {
             var filePath = GetContentExportFilePath();
 
             return File.ReadAllText(filePath);
