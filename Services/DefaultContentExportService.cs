@@ -38,7 +38,7 @@ namespace CJP.ContentSync.Services
             _customExportStep.Register(customSteps);
             customSteps = customSteps.Except(settings.ExcludedExportSteps).ToList();
 
-            return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published });
+            return _importExportService.Export(contentTypes, new ExportOptions { CustomSteps = customSteps, ExportData = true, ExportMetadata = true, ExportSiteSettings = false, VersionHistoryOptions = VersionHistoryOptions.Published, ImportBatchSize = 50});//todo: batch size can come from settings
         }
 
         public string GetContentExportText() 

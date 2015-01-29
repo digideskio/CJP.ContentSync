@@ -108,6 +108,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlternateImplementations\LenientImportExportService.cs" />
     <Compile Include="Commands\ContentMigrationCommands.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\SnapshotsController.cs" />

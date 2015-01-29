@@ -8,3 +8,9 @@ Description: Provides methods to sync the content of mutliple Orchard sites.
 Category: Content Publishing
 Path: ContentSync
 Dependencies: Orchard.ImportExport, Orchard.Widgets, Orchard.Themes, Orchard.jQuery, Orchard.Alias, Orchard.Autoroute
+Features:
+    CJP.ContentSync.LenientContentExport:
+        Description: Adds the ability to continue with content export should an individual content item fail to export. The failing content item will not be included in the final export.
+        Name: Lenient Content Export
+        Category: Content
+		Dependencies: Orchard.ImportExport
