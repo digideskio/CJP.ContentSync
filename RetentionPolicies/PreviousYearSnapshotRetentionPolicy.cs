@@ -18,7 +18,7 @@ namespace CJP.ContentSync.RetentionPolicies
 
         public int[] GetSnapshotIdsToRetain()
         {//keep 1 snapshot a month for the past year
-            var records = _repository.Table.Where(r => r.TimeTaken > _clock.UtcNow.AddYears(-1));
+            var records = _repository.Table.Where(r => r.TimeTaken > _clock.UtcNow.AddYears(-1)).ToList();
 
             var groups = records.GroupBy(r => r.TimeTaken.ToString("yyyy MMMM"), r => r.Id);
 

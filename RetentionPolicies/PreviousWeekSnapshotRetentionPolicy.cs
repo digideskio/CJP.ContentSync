@@ -18,7 +18,7 @@ namespace CJP.ContentSync.RetentionPolicies
 
         public int[] GetSnapshotIdsToRetain()
         {//keep 1 snapshot a day for the past 7 days
-            var records = _repository.Table.Where(r => r.TimeTaken > _clock.UtcNow.AddDays(-7));
+            var records = _repository.Table.Where(r => r.TimeTaken > _clock.UtcNow.AddDays(-7)).ToList();
 
             var groups = records.GroupBy(r => r.TimeTaken.ToString("yyyy MMMM dd"), r => r.Id);
 
