@@ -9,7 +9,8 @@ using Orchard.Recipes.Models;
 using Orchard.Recipes.Services;
 using Orchard.Services;
 
-namespace CJP.ContentSync.Services {
+namespace CJP.ContentSync.Services 
+{
     public class DefaultContentSyncService : IContentSyncService 
     {
         private readonly IRepository<RemoteSiteConfigRecord> _remoteConfigRepository;
@@ -52,14 +53,15 @@ namespace CJP.ContentSync.Services {
             return Sync(url);
         }
 
-        public ContentSyncResult Sync(string url) {
+        public ContentSyncResult Sync(string url) 
+        {
             var importText = string.Empty;
 
             try
             {
                 var client = new ExtendedTimeoutWebClient();
 
-                importText = client.DownloadString(url);
+                importText = System.Text.Encoding.Default.GetString(client.DownloadData(url));
             }
             catch (WebException ex)
             {
@@ -113,10 +115,11 @@ namespace CJP.ContentSync.Services {
         {
             protected override WebRequest GetWebRequest(Uri uri)
             {
-                WebRequest w = base.GetWebRequest(uri);
-                w.Timeout = 3 * 60 * 1000; //3 minutes
+                var request = base.GetWebRequest(uri) as HttpWebRequest;
+                request.Timeout = 3 * 60 * 1000; //3 minutes
+                request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
 
-                return w;
+                return request;
             }
         }
     }
