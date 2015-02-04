@@ -9,10 +9,12 @@ using Orchard.Data;
 using Orchard.Localization;
 using Orchard.Logging;
 using Orchard.Mvc;
+using Orchard.UI.Admin;
 using Orchard.UI.Notify;
 
 namespace CJP.ContentSync.Controllers
 {
+    [Admin]
     public class AdminController : Controller
     {
         private readonly IOrchardServices _orchardServices;
