@@ -42,6 +42,8 @@ namespace CJP.ContentSync.ExportSteps
                 throw ex;
             }
 
+            // add the Migration element to force migrations to be ran immediately after the features have been synced
+            rootElement.AddFirst(new XElement("Migration", new XAttribute("features", "*")));
             rootElement.AddFirst(xmlElement);
         }
 
