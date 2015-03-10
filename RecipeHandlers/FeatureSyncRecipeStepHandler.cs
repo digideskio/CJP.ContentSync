@@ -58,6 +58,9 @@ namespace CJP.ContentSync.RecipeHandlers
             _featureManager.DisableFeatures(featuresToDisable, true);
             _featureManager.EnableFeatures(featuresToEnable, true);
 
+            // this line is required to ensure that features that are meant to be disabled by the redactions are not enabled as part of a dependency chain
+            _featureManager.DisableFeatures(featureRedactions.Where(r => !r.Enabled).Select(r => r.FeatureId), true);
+
             recipeContext.Executed = true;
         }
     }
