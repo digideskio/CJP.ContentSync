@@ -14,13 +14,13 @@ namespace CJP.ContentSync.Providers {
         private readonly IFeatureManager _featureManager;
         private readonly IVirtualPathProvider _virtualPathProvider;
         private readonly IImportExportService _importExportService;
-        private readonly IRecipeJournal _recipeJournal;
+        //private readonly IRecipeJournal _recipeJournal;
 
-        public RecipeContentMigrationProvider(IFeatureManager featureManager, IVirtualPathProvider virtualPathProvider, IImportExportService importExportService, IRecipeJournal recipeJournal) {
+        public RecipeContentMigrationProvider(IFeatureManager featureManager, IVirtualPathProvider virtualPathProvider, IImportExportService importExportService/*, IRecipeJournal recipeJournal*/) {
             _featureManager = featureManager;
             _virtualPathProvider = virtualPathProvider;
             _importExportService = importExportService;
-            _recipeJournal = recipeJournal;
+            //_recipeJournal = recipeJournal;
         }
 
         public IEnumerable<string> GetAvailableMigrations() {
@@ -37,16 +37,16 @@ namespace CJP.ContentSync.Providers {
 
                     var mappedPath = _virtualPathProvider.MapPath(recipeFile);
                     var executionId = _importExportService.Import(File.ReadAllText(mappedPath));
-                    var recipeJournal = _recipeJournal.GetRecipeJournal(executionId);
+                    //var recipeJournal = _recipeJournal.GetRecipeJournal(executionId);
 
-                    result.Messages.AddRange(recipeJournal.Messages.Select(m=>string.Format("Recipe Content Migration Provider: Migration: {0}. {1}", migrationName, m)));
+                    //result.Messages.AddRange(recipeJournal.Messages.Select(m=>string.Format("Recipe Content Migration Provider: Migration: {0}. {1}", migrationName, m)));
 
-                    if (recipeJournal.Status == RecipeStatus.Complete) {
-                        result.SuccessfulMigrations.Add(migrationName);
-                    }
-                    else{
-                        result.FailedMigrations.Add(migrationName);
-                    }
+                    //if (recipeJournal.Status == RecipeStatus.Complete) {
+                    //    result.SuccessfulMigrations.Add(migrationName);
+                    //}
+                    //else{
+                    //    result.FailedMigrations.Add(migrationName);
+                    //}
                 }
             }
 

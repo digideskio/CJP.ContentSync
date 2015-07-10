@@ -16,14 +16,14 @@ namespace CJP.ContentSync.Services
         private readonly IRepository<RemoteSiteConfigRecord> _remoteConfigRepository;
         private readonly IClock _clock;
         private readonly IImportExportService _importExportService;
-        private readonly IRecipeJournal _recipeJournal;
+        //private readonly IRecipeJournal _recipeJournal;
 
-        public DefaultContentSyncService(IRepository<RemoteSiteConfigRecord> remoteConfigRepository, IClock clock, IImportExportService importExportService, IRecipeJournal recipeJournal)
+        public DefaultContentSyncService(IRepository<RemoteSiteConfigRecord> remoteConfigRepository, IClock clock, IImportExportService importExportService/*, IRecipeJournal recipeJournal*/)
         {
             _remoteConfigRepository = remoteConfigRepository;
             _clock = clock;
             _importExportService = importExportService;
-            _recipeJournal = recipeJournal;
+            //_recipeJournal = recipeJournal;
 
             Logger = NullLogger.Instance;
         }
@@ -94,19 +94,19 @@ namespace CJP.ContentSync.Services
         public ContentSyncResult SyncFromText(string text)
         {
             var executionId = _importExportService.Import(text);
-            var journal = _recipeJournal.GetRecipeJournal(executionId);
+            //var journal = _recipeJournal.GetRecipeJournal(executionId);
 
             var status = ContentSyncResultStatus.RecipeExecutionPending;
 
-            switch (journal.Status)
-            {
-                case RecipeStatus.Complete:
-                    status = ContentSyncResultStatus.OK;
-                    break;
-                case RecipeStatus.Failed:
-                    status = ContentSyncResultStatus.RecipeExecutionFailed;
-                    break;
-            }
+            //switch (journal.Status)
+            //{
+            //    case RecipeStatus.Complete:
+            //        status = ContentSyncResultStatus.OK;
+            //        break;
+            //    case RecipeStatus.Failed:
+            //        status = ContentSyncResultStatus.RecipeExecutionFailed;
+            //        break;
+            //}
 
             return new ContentSyncResult { Status = status, RecipeExecutionId = executionId};
         }
