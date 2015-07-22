@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using Orchard;
+using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
 using Orchard.Localization;
 using Orchard.Logging;

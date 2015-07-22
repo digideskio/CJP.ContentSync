@@ -6,6 +6,7 @@ using Orchard.Alias;
 using Orchard.Alias.Implementation.Holder;
 using Orchard.Autoroute.Models;
 using Orchard.ContentManagement;
+using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
 using Orchard.Localization;
 using Orchard.Logging;
@@ -41,12 +42,12 @@ namespace CJP.ContentSync.ExportSteps
             //we need to remove any aliases that are autoroutes because the remote conent id may not sync up with the local content id. the autoroutes will be imported as part of the content import
             var aliasInfosToExport = allAliasInfos.Where(ai => !autoroutePaths.Contains(ai.Path));
 
-            foreach (var aliasInfo in aliasInfosToExport) 
+            foreach (var aliasInfo in aliasInfosToExport.OrderBy(x => x.Path)) 
             {
                 var aliasElement = new XElement("Alias", new XAttribute("Path", aliasInfo.Path));
 
                 var routeValuesElement = new XElement("RouteValues");
-                foreach (var routeValue in aliasInfo.RouteValues) {
+                foreach (var routeValue in aliasInfo.RouteValues.OrderBy(x => x.Key)) {
                     routeValuesElement.Add(new XElement("Add", new XAttribute("Key", routeValue.Key), new XAttribute("Value", routeValue.Value)));
                 }
 

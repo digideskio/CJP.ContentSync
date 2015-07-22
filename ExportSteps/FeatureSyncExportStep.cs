@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Orchard;
 using Orchard.Environment.Features;
+using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
 using Orchard.Localization;
 using Orchard.Logging;
@@ -29,7 +30,7 @@ namespace CJP.ContentSync.ExportSteps
 
             var xmlElement = new XElement("FeatureSync");
 
-            foreach (var feature in _featureManager.GetEnabledFeatures()) {
+            foreach (var feature in _featureManager.GetEnabledFeatures().OrderBy(x => x.Id)) {
                 xmlElement.Add(new XElement("Feature", new XAttribute("Id", feature.Id)));
             }
 

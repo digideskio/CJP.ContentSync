@@ -6,6 +6,7 @@ using CJP.ContentSync.Models;
 using CJP.ContentSync.Services;
 using Orchard;
 using Orchard.ContentManagement;
+using Orchard.ImportExport.Models;
 using Orchard.ImportExport.Services;
 using Orchard.Localization;
 using Orchard.Logging;
