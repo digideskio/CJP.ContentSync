@@ -3,24 +3,24 @@ using Orchard.ContentManagement;
 
 namespace CJP.ContentSync.Models 
 {
-    public class ContentSyncSettingsPart : ContentPart<ContentSyncSettingsRecord>
+    public class ContentSyncSettingsPart : ContentPart
     {
         public string[] ExcludedExportSteps
         {
-            get { return (Record.ExcludedExportSteps ?? "").Split('#'); }
-            set { Record.ExcludedExportSteps = string.Join("#", value); }
+            get { return (Retrieve<string>("ExcludedExportSteps") ?? "").Split('#'); }
+            set { Store("ExcludedExportSteps", string.Join("#", value)); }
         }
 
         public string[] ExcludedSiteSettings
         {
-            get { return (Record.ExcludedSiteSettings ?? "").Split('#'); }
-            set { Record.ExcludedSiteSettings = string.Join("#", value); }
+            get { return (Retrieve<string>("ExcludedSiteSettings") ?? "").Split('#'); }
+            set { Store("ExcludedSiteSettings", string.Join("#", value)); }
         }
 
         public string[] ExcludedContentTypes
         {
-            get { return (Record.ExcludedContentTypes ?? "").Split('#'); }
-            set { Record.ExcludedContentTypes = string.Join("#", value); }
+            get { return (Retrieve<string>("ExcludedContentTypes") ?? "").Split('#'); }
+            set { Store("ExcludedContentTypes", string.Join("#", value)); }
         }
 
         public IList<SelectableItem<string>> AllContentTypes { get; set; }
@@ -29,8 +29,8 @@ namespace CJP.ContentSync.Models
 
         public int SnapshotFrequencyMinutes
         {
-            get { return Record.SnapshotFrequencyMinutes; }
-            set { Record.SnapshotFrequencyMinutes = value; }
+            get { return this.Retrieve(x => x.SnapshotFrequencyMinutes); }
+            set { this.Store(x => x.SnapshotFrequencyMinutes, value); }
         }
     }
 }

@@ -49,6 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -132,7 +136,6 @@
     <Compile Include="Models\FeatureRedactionRecord.cs" />
     <Compile Include="Models\SelectableItem.cs" />
     <Compile Include="Models\ContentSyncSettingsPart.cs" />
-    <Compile Include="Models\ContentSyncSettingsRecord.cs" />
     <Compile Include="Models\Enums\RedactionOperationStatus.cs" />
     <Compile Include="Models\RemoteSiteConfigRecord.cs" />
     <Compile Include="Models\SettingRedactionRecord.cs" />
@@ -149,6 +152,8 @@
     <Compile Include="RetentionPolicies\PreviousWeekSnapshotRetentionPolicy.cs" />
     <Compile Include="RetentionPolicies\PreviousYearSnapshotRetentionPolicy.cs" />
     <Compile Include="Services\DefaultSnapshotService.cs" />
+    <Compile Include="Services\IInfoSetMigrationService.cs" />
+    <Compile Include="Services\InfoSetMigrationService.cs" />
     <Compile Include="Services\ISnapshotService.cs" />
     <Compile Include="Services\DefaultContentSyncService.cs" />
     <Compile Include="Services\DefaultFeatureRedactionService.cs" />
@@ -198,9 +203,7 @@
     <Compile Include="Tasks\TakeSnapshotTaskHandler.cs" />
     <Compile Include="EventHandlers\StartupEvents.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ContentMigrations\CJP.ContentSync\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>

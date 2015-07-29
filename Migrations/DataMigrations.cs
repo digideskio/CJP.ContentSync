@@ -1,11 +1,19 @@
 ﻿using System;
 using CJP.ContentSync.Models;
+using CJP.ContentSync.Services;
 using Orchard.Data.Migration;
 
 namespace CJP.ContentSync.Migrations
 {
     public class DataMigrations : DataMigrationImpl
     {
+        private readonly IInfoSetMigrationService _migrationService;
+
+        public DataMigrations(IInfoSetMigrationService migrationService)
+        {
+            _migrationService = migrationService;
+        }
+
         public int Create()
         {
             SchemaBuilder.CreateTable(typeof(MigrationExecutionRecord).Name, table => table
@@ -13,7 +21,7 @@ namespace CJP.ContentSync.Migrations
                 .Column<string>("MigrationName")
                 .Column<DateTime>("ExecutedAt"));
 
-            return 1;
+            return 9;
         }
 
         public int UpdateFrom1()
@@ -49,16 +57,7 @@ namespace CJP.ContentSync.Migrations
             return 4;
         }
 
-        public int UpdateFrom4()
-        {
-            SchemaBuilder.CreateTable(typeof(ContentSyncSettingsRecord).Name, table => table
-                .ContentPartRecord()
-                .Column<string>("ExcludedExportSteps", column => column.Unlimited())
-                .Column<string>("ExcludedSiteSettings", column => column.Unlimited())
-                .Column<string>("ExcludedContentTypes", column => column.Unlimited()));
-
-            return 5;
-        }
+        public int UpdateFrom4() { return 5; }
 
         public int UpdateFrom5()
         {
@@ -80,11 +79,19 @@ namespace CJP.ContentSync.Migrations
             return 7;
         }
 
-        public int UpdateFrom7() 
-        {
-            SchemaBuilder.AlterTable(typeof(ContentSyncSettingsRecord).Name, table => table.AddColumn<int>("SnapshotFrequencyMinutes"));
+        public int UpdateFrom7() { return 8; }
 
-            return 8;
+        public int UpdateFrom8()
+        {
+            _migrationService.Migrate<ContentSyncSettingsPart>(this, "ContentSyncSettingsRecord", (part, row) =>
+            {
+                part.Store("ExcludedExportSteps", (string)row[1]);
+                part.Store("ExcludedSiteSettings", (string)row[2]);
+                part.Store("ExcludedContentTypes", (string)row[3]);
+                part.SnapshotFrequencyMinutes = (int) row[4];
+            });
+
+            return 9;
         }
     }
 }
