@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Routing;
 using CJP.ContentSync.Services;
-using JetBrains.Annotations;
 using Orchard;
 using Orchard.Core.Common.Drivers;
 using Orchard.Core.Common.Models;
@@ -10,7 +9,6 @@ using Orchard.Services;
 
 namespace CJP.ContentSync.Drivers {
     [OrchardSuppressDependency("Orchard.Core.Common.Drivers.BodyPartDriver")]
-    [UsedImplicitly]
     public class RedactedBodyPartDriver : BodyPartDriver {
         private readonly IContentRedactionService _textRedactionService;
 
